@@ -1,0 +1,4 @@
+setuptools==50.3.2
+wheel==0.35.1
+pytest
+pytest-cov
