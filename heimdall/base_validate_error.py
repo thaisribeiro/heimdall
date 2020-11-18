@@ -1,6 +1,10 @@
 class InvalidAgencyNumber(Exception):
-    def __init__(self, agency_number):
-        self.message = f'A agência deve conter {agency_number} números. Complete com zeros a esquerda se necessário.'
+    def __init__(self, agency_number=None):
+        self.message = 'Agência inválida.'
+
+        if agency_number is not None:
+            self.message = f'A agência deve conter {agency_number} números. Complete com zeros a esquerda se necessário.'
+        
         super().__init__(self.message)
     
     def __str__(self):
@@ -15,8 +19,11 @@ class InvalidDigitAgencyNumber(Exception):
         return f'{self.message}'
 
 class InvalidAccountNumber(Exception):
-    def __init__(self, account_number):
-        self.message = f'A conta corrente deve conter {account_number} números. Complete com zeros a esquerda se necessário'
+    def __init__(self, account_number=None):
+        self.message = 'Conta inválida'
+        
+        if account_number is not None:
+            self.message = f'A conta corrente deve conter {account_number} números. Complete com zeros a esquerda se necessário'
         super().__init__(self.message)
     
     def __str__(self):
@@ -29,3 +36,12 @@ class InvalidDigitAccountNumber(Exception):
     
     def __str__(self):
         return f'{self.message}'
+
+class InvalidCodeBank(Exception):
+    def __init__(self):
+        self.message = 'Banco inválido'
+        super().__init__(self.message)
+    
+    def __str__(self):
+        return f'{self.message}'
+    

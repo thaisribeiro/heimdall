@@ -1,5 +1,5 @@
 import re
-
+from heimdall.base_validate_error import InvalidCodeBank
 
 class BankValidator():
     def __init__(self, bank_code):
@@ -19,13 +19,15 @@ class BankValidator():
         bank_valid = switcher.get(self.bank_code)
 
         if not bank_valid:
-            return {}
+            return self.valid_bank_generic()
 
         return bank_valid
 
     def valid_bank_generic(self):
-        regex = re.compile('([0-9A-Za-x]{3,5})', re.I)
+        regex = re.compile('^([0-9A-Za-x]{3,5})$', re.I)
         match = bool(regex.match(self.bank_code))
 
         if match == False:
-            raise 
+            raise InvalidCodeBank()
+
+        return self.bank_code
