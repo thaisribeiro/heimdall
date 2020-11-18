@@ -1,5 +1,6 @@
 import re
 from generic_validators import GenericValidators
+from calculate_number_account_agency import CalculateNumberAgency
 from common_validate import CommonValidate
 from base_validate_error import InvalidAgencyNumber, InvalidDigitAgencyNumber,InvalidAccountNumber, InvalidDigitAccountNumber, InvalidCodeBankP 
 
@@ -50,7 +51,20 @@ class AgencyValidator(CommonValidate):
         return result
 
     def valid_agency_bb(self, config):
-        return {}
+        agency = self.config('agency')
+        digit_agency = self.config.get('digit_agency')
+
+        result = super().agency_is_valid(agency)
+
+        if result == False:
+            raise InvalidAgencyNumber(agency)
+
+        calculated_agency_digit = CalculateNumberAgency.calculate_number_agency_bb(digit_agency)
+
+        if not calculated_agency_digit:
+            raise InvalidDigitAgencyNumber()
+
+        return True
 
     def valid_agency_itau(self):
         agency = self.config('agency')

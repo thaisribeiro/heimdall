@@ -35,7 +35,22 @@ class AccountValidator(CommonValidate):
         return {}
 
     def valid_account_bb(self):
-        return {}
+        account = self.config('account')
+
+        if len(account) < 9:
+            raise InvalidAccountNumber(9)
+
+        result = super().account_is_valid(account)
+
+        if result == False:
+            raise InvalidAccountNumber()
+
+        calculate_account = CalculateNumberAccount(account).caculate_number_account_bb()
+
+        if not calculate_account:
+            raise InvalidDigitAccountNumber()
+
+        return True
 
     def valid_account_itau(self):
         account = self.config('account')
