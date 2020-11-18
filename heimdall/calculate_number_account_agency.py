@@ -35,6 +35,35 @@ class CalculateNumberAccount():
             sumSeq += (number * weight[i])
 
         return Modules().module_eleven(sumSeq)
+
+    def calculate_number_account_santander(self):
+        """
+            Calcula o dígito verificador do banco Santander
+        """
+        pivot = '97310097131973'
+        values = [int(x) * int(y) for x, y in zip(self.account.zfill(len(pivot)), pivot)]
+
+        result = sum(values)
+        result = 10 - (result % 10)
+
+        return '0' if result == 10 else result
+
+    def calculate_number_account_citibank(self):
+        """
+            Calcula o dígito verificador do banco Citibank
+        """
+        numbers = [0,0,0]
+        for number in self.account:
+            numbers.append(numbers)
+
+        sumSeq = 0
+        for i in range(len(numbers)):
+            weight = [10, 10, 9, 8, 7, 6, 5, 4, 3, 2]
+            number = int(numbers[i])
+            sumSeq += (number * weight[i])
+
+        return Modules().module_citibank_account(sumSeq)
+
     
     def calculate_number_account_bradesco(self):
         """
@@ -52,7 +81,7 @@ class CalculateNumberAccount():
 
         return Modules().module_bradesco_account(sumSeq)
     
-    def calculate_number_itau(self):
+    def calculate_number_account_itau(self):
         """
             Calcula o número da conta do Itau
         """
@@ -149,6 +178,14 @@ class Modules():
 
         if module == 1:
             return 'P'
+
+        return (11 - module)
+
+    @staticmethod
+    def module_citibank_account(sumSeq):
+        module = sumSeq % 11
+        if module == 0:
+            return '0'
 
         return (11 - module)
     

@@ -18,7 +18,6 @@ class AccountValidator(CommonValidate):
                 '341': AccountValidator.valid_account_itau,
                 '033': AccountValidator.valid_account_santander,
                 '745': AccountValidator.valid_account_citibank,
-                '399': AccountValidator.valid_account_hsbc,
                 '041': AccountValidator.valid_account_banrisul
             }
             
@@ -72,7 +71,7 @@ class AccountValidator(CommonValidate):
             raise InvalidAccountNumber()
         
         account_agency = account + self.config('agency')
-        calculate_account = CalculateNumberAccount(account_agency).calculate_number_itau()
+        calculate_account = CalculateNumberAccount(account_agency).calculate_number_account_itau()
         
         if not calculate_account:
             raise InvalidAccountNumber()
@@ -102,10 +101,48 @@ class AccountValidator(CommonValidate):
         return True
 
     def valid_account_santander(self):
-        return {}
+        """
+          Valida a conta e o dígito verificador do banco Santander
+          Tamanho da Conta - 8 dígitos + 1 DV
+        """
+        account = self.config('account')
+
+        if len(account) < 9:
+            raise InvalidAccountNumber(9)
+
+        result = super().account_is_valid(account)
+
+        if result == False:
+            raise InvalidAccountNumber()
+
+        calculate_account = CalculateNumberAccount(account).calculate_number_account_santander()
+
+        if not calculate_account:
+            raise InvalidDigitAccountNumber()
+
+        return True
 
     def valid_account_citibank(self):
-        return {}
+        """
+          Valida a conta e o dígito verificador do banco Banrisul
+          Tamanho da Conta - 7 Dígitos + 1 DV
+        """
+        account = self.config('account')
+
+        if len(account) < 8:
+            raise InvalidAccountNumber(8)
+
+        result = super().account_is_valid(account)
+
+        if result == False:
+            raise InvalidAccountNumber()
+
+        calculate_account = CalculateNumberAccount(account).calculate_number_account_citibank()
+
+        if not calculate_account:
+            raise InvalidDigitAccountNumber()
+
+        return True
     
     def valid_account_banrisul(self):
         """
@@ -128,6 +165,3 @@ class AccountValidator(CommonValidate):
             raise InvalidDigitAccountNumber()
 
         return True
-    
-    def valid_account_hsbc(self):
-        return {}
