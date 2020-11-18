@@ -98,7 +98,14 @@ class CalculateNumberAgency():
         """
         sumSeq = self.calculate_number_agency_generic()
         return Modules().module_bradesco_agency(sumSeq)
-    
+
+    def calculate_number_agency_banrisul(self):
+        """
+          Calcula o dígito verificador da agência do banco Banrisul
+        """
+        sumSeq = self.calculate_number_agency_generic()
+        return Modules().module_banrisul_agency(sumSeq)
+
     def calculate_number_agency_generic(self):
         numbers = []
         for number in self.agency:
@@ -155,6 +162,38 @@ class Modules():
             return '0'
 
         return str(module)
+
+    @staticmethod
+    def module_banrisul_agency(sumSeq):
+
+        def sum_digits(value):
+            return sum([int(x) for x in str(value)])
+
+        first_digit = 10 - ((sum_digits(int(sumSeq.branch[0]) * 1) +
+                             sum_digits(int(sumSeq.branch[1]) * 2) +
+                             sum_digits(int(sumSeq.branch[2]) * 1) +
+                             sum_digits(int(sumSeq.branch[3]) * 2)) % 10)
+
+        if first_digit == 10:
+            first_digit = 0
+
+        second_digit = 11 - ((int(sumSeq.branch[0]) * 6 +
+                              int(sumSeq.branch[1]) * 5 +
+                              int(sumSeq.branch[2]) * 4 +
+                              int(sumSeq.branch[3]) * 3 +
+                              first_digit * 2) % 11)
+
+        if second_digit == 11:
+            second_digit = 0
+        elif second_digit == 10:
+            first_digit = (first_digit + 1) % 10
+            second_digit = 11 - ((int(sumSeq.branch[0]) * 6 +
+                                  int(sumSeq.branch[1]) * 5 +
+                                  int(sumSeq.branch[2]) * 4 +
+                                  int(sumSeq.branch[3]) * 3 +
+                                  first_digit * 2) % 11)
+
+        return str(first_digit) + str(second_digit)
 
     @staticmethod
     def module_itau(sumSeq):
