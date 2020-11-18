@@ -51,6 +51,10 @@ class AgencyValidator(CommonValidate):
         return result
 
     def valid_agency_bb(self):
+        """
+           Valida a agência e o dígito verificador do banco do Brasil
+           Tamanho da Agência - 4 Dígitos + 1 DV
+        """
         agency = self.config('agency')
         digit_agency = self.config.get('digit_agency')
 
@@ -75,7 +79,24 @@ class AgencyValidator(CommonValidate):
         return True
 
     def valid_agency_bradesco(self, config):
-        return {}
+        """
+            Valida a agência e o dígito verificador do banco Bradesco
+            Tamanho da Agência - 4 Dígitos + 2 DV
+        """
+        agency = self.config('agency')
+        digit_agency = self.config.get('digit_agency')
+
+        result = super().agency_is_valid(agency)
+
+        if result == False:
+            raise InvalidAgencyNumber(agency)
+
+        calculated_agency_digit = CalculateNumberAgency.calculate_number_agency_bradesco(digit_agency)
+
+        if not calculated_agency_digit:
+            raise InvalidDigitAgencyNumber()
+
+        return True
 
     def valid_agency_santander(self, config):
         return {}

@@ -35,6 +35,10 @@ class AccountValidator(CommonValidate):
         return {}
 
     def valid_account_bb(self):
+        """
+          Valida a conta e o dígito verificador do Banco do Brasil
+          Tamanho da Conta - 8 Dígitos + 1 DV
+        """
         account = self.config('account')
 
         if len(account) < 9:
@@ -53,10 +57,14 @@ class AccountValidator(CommonValidate):
         return True
 
     def valid_account_itau(self):
+        """
+          Valida a conta e o dígito verificador do banco Itaú
+          Tamanho da Conta - 5 Dígitos + 1 DV
+        """
         account = self.config('account')
 
-        if len(account) < 5:
-            raise InvalidAccountNumber(5)
+        if len(account) < 6:
+            raise InvalidAccountNumber(6)
         
         result = super().account_is_valid(account)
 
@@ -72,7 +80,26 @@ class AccountValidator(CommonValidate):
         return True
 
     def valid_account_bradesco(self):
-        return {}
+        """
+          Valida a conta e o dígito verificador do banco Bradesco
+          Tamanho da Conta - 7 Dígitos + 1 DV
+        """
+        account = self.config('account')
+
+        if len(account) < 8:
+            raise InvalidAccountNumber(8)
+
+        result = super().account_is_valid(account)
+
+        if result == False:
+            raise InvalidAccountNumber()
+
+        calculate_account = CalculateNumberAccount(account).calculate_number_account_bradesco()
+
+        if not calculate_account:
+            raise InvalidDigitAccountNumber()
+
+        return True
 
     def valid_account_santander(self):
         return {}
@@ -81,7 +108,26 @@ class AccountValidator(CommonValidate):
         return {}
     
     def valid_account_banrisul(self):
-        return {}
+        """
+          Valida a conta e o dígito verificador do banco Banrisul
+          Tamanho da Conta - 9 Dígitos + 1 DV (sendo os dois primeiros o tipo de conta)
+        """
+        account = self.config('account')
+
+        if len(account) < 10:
+            raise InvalidAccountNumber(10)
+
+        result = super().account_is_valid(account)
+
+        if result == False:
+            raise InvalidAccountNumber()
+
+        calculate_account = CalculateNumberAccount(account).calculate_number_account_banrisul()
+
+        if not calculate_account:
+            raise InvalidDigitAccountNumber()
+
+        return True
     
     def valid_account_hsbc(self):
         return {}
