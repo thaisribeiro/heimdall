@@ -50,7 +50,7 @@ class AgencyValidator(CommonValidate):
 
         return result
 
-    def valid_agency_bb(self, config):
+    def valid_agency_bb(self):
         agency = self.config('agency')
         digit_agency = self.config.get('digit_agency')
 
