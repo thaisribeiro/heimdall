@@ -54,8 +54,7 @@ class AccountValidator(CommonValidate):
         if not calculate_account:
             raise InvalidAccountNumber()
         
-
-
+        return True
 
     def valid_account_bradesco(self):
         return {}
