@@ -167,7 +167,7 @@ class CalculateAgencyCheckDigit():
         """
             Calcula número da agência do Banco do Brasil
         """
-        sumSeq = self.calculate_check_digit_agency_generic()
+        sumSeq = self.calculate_check_digit_agency_generic(self.agency)
         return Modules().module_bb(sumSeq)
     
     def calculate_check_digit_agency_bradesco(self):
@@ -184,16 +184,17 @@ class CalculateAgencyCheckDigit():
         sumSeq = self.calculate_check_digit_agency_generic()
         return Modules().module_banrisul_agency(sumSeq)
 
-    def calculate_check_digit_agency_generic(self):
+    @staticmethod
+    def calculate_check_digit_agency_generic(agency):
         numbers = []
-        for number in self.agency:
+        for number in agency:
             numbers.append(number)
         
         sumSeq = 0
         
         for i in range(len(numbers)):
             seq = 5 - i
-            sumSeq = int(numbers[i] * seq)
+            sumSeq += (float(numbers[i]) * seq)
 
         return sumSeq
 
