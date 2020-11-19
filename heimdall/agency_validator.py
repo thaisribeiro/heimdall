@@ -27,7 +27,9 @@ class AgencyValidator(CommonValidate):
                 '341': AgencyValidator.valid_agency_itau,
                 '033': AgencyValidator.valid_agency_santander,
                 '745': AgencyValidator.valid_agency_citibank,
-                '041': AgencyValidator.valid_agency_banrisul
+                '041': AgencyValidator.valid_agency_banrisul,
+                '104': AgencyValidator.valid_agency_caixa,
+                '260': AgencyValidator.valid_agency_nubank
             }
 
             result = switcher.get(bank_code)()
@@ -147,6 +149,30 @@ class AgencyValidator(CommonValidate):
         """
           Valida a agência do banco Citibank
           Tamanho da Agência - 4 Dígitos - Não tem dígito verificador
+        """
+        agency = self.config('agency')
+        result = super().agency_is_valid(agency)
+
+        if result == False:
+            raise InvalidAgencyNumber(agency)
+        return True
+
+    def valid_agency_caixa(self):
+        """
+           Valida a agência do banco Caixa Econômica Federal
+           Tamanho da Agência - 4 Dígitos - Não tem dígito verificador
+        """
+        agency = self.config('agency')
+        result = super().agency_is_valid(agency)
+
+        if result == False:
+            raise InvalidAgencyNumber(agency)
+        return True
+
+    def valid_agency_nubank(self):
+        """
+           Valida a agência do banco Nu Pagamentos (Nubank)
+           Tamanho da Agência - 4 Dígitos - Não tem dígito verificador
         """
         agency = self.config('agency')
         result = super().agency_is_valid(agency)

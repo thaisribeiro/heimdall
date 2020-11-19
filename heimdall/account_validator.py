@@ -18,7 +18,9 @@ class AccountValidator(CommonValidate):
                 '341': AccountValidator.valid_account_itau,
                 '033': AccountValidator.valid_account_santander,
                 '745': AccountValidator.valid_account_citibank,
-                '041': AccountValidator.valid_account_banrisul
+                '041': AccountValidator.valid_account_banrisul,
+                '104': AccountValidator.valid_account_caixa,
+                '260': AccountValidator.valid_account_nubank
             }
             
             result = switcher.get(bank_code)()
@@ -160,6 +162,50 @@ class AccountValidator(CommonValidate):
             raise InvalidAccountNumber()
 
         calculate_account = CalculateNumberAccount(account).calculate_number_account_banrisul()
+
+        if not calculate_account:
+            raise InvalidDigitAccountNumber()
+
+        return True
+
+    def valid_account_caixa(self):
+        """
+          Valida a conta e o dígito verificador do banco Caixa Econômica Federal
+          Tamanho da Conta - 11 Dígitos + 1 DV
+        """
+        account = self.config('account')
+
+        if len(account) < 12:
+            raise InvalidAccountNumber(12)
+
+        result = super().account_is_valid(account)
+
+        if result == False:
+            raise InvalidAccountNumber()
+
+        calculate_account = CalculateNumberAccount(account).calculate_number_account_caixa()
+
+        if not calculate_account:
+            raise InvalidDigitAccountNumber()
+
+        return True
+
+    def valid_account_nubank(self):
+        """
+          Valida a conta e o dígito verificador do banco Nu Pagamentos (Nubank)
+          Tamanho da Conta - 7 Dígitos + 1 DV
+        """
+        account = self.config('account')
+
+        if len(account) < 8:
+            raise InvalidAccountNumber(8)
+
+        result = super().account_is_valid(account)
+
+        if result == False:
+            raise InvalidAccountNumber()
+
+        calculate_account = CalculateNumberAccount(account).calculate_number_account_nubank()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
