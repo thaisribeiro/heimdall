@@ -207,7 +207,7 @@ class Modules():
         if result == 11:
             return '0'
         
-        return str(result)
+        return str(int(result))
     
     @staticmethod
     def module_eleven(sumSeq):

@@ -1,6 +1,5 @@
 import unittest
 
-from heimdall.account_validator import AccountValidator
 from heimdall.check_digit_calculator import CalculateAgencyCheckDigit
 from heimdall.tests.data import BANCO_DO_BRASIL
 
@@ -13,7 +12,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
             agency = agency[0]
             digit = bank_data['branch_digit']
             digit_calculated = CalculateAgencyCheckDigit(agency).calculate_check_digit_agency_bb()
-            assert int(digit_calculated) == int(digit)
+            assert digit_calculated == digit
 
 if __name__ == '__main__':
     unittest.main()
