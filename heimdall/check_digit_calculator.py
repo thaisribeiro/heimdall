@@ -1,9 +1,9 @@
-class CalculateNumberAccount():
+class CalculateAccountCheckDigit():
     def __init__(self, account):
         # account é a conta e o digito
         self.account = account
     
-    def caculate_number_account_bb(self):
+    def caculate_check_digit_account_bb(self):
         """
             Calcula numero da conta do Banco do Brasil
         """
@@ -19,7 +19,7 @@ class CalculateNumberAccount():
 
         return Modules().module_bb(sumSeq)
 
-    def calculate_number_account_banrisul(self):
+    def calculate_check_digit_account_banrisul(self):
         """
             Calcula numero da conta do Banrisul
         """
@@ -36,7 +36,7 @@ class CalculateNumberAccount():
 
         return Modules().module_eleven(sumSeq)
 
-    def calculate_number_account_santander(self):
+    def calculate_check_digit_account_santander(self):
         """
             Calcula o dígito verificador do banco Santander
         """
@@ -48,7 +48,7 @@ class CalculateNumberAccount():
 
         return '0' if result == 10 else result
 
-    def calculate_number_account_citibank(self):
+    def calculate_check_digit_account_citibank(self):
         """
             Calcula o dígito verificador do banco Citibank
         """
@@ -65,7 +65,7 @@ class CalculateNumberAccount():
         return Modules().module_citibank_account(sumSeq)
 
     
-    def calculate_number_account_bradesco(self):
+    def calculate_check_digit_account_bradesco(self):
         """
             Calcula numero da conta do Bradesco
         """
@@ -81,7 +81,7 @@ class CalculateNumberAccount():
 
         return Modules().module_bradesco_account(sumSeq)
     
-    def calculate_number_account_itau(self):
+    def calculate_check_digit_account_itau(self):
         """
             Calcula o número da conta do Itau
         """
@@ -110,7 +110,7 @@ class CalculateNumberAccount():
 
         return Modules().module_itau(sumSeq)
 
-    def calculate_number_account_caixa(self):
+    def calculate_check_digit_account_caixa(self):
         """
             Calcula o dígito verificador de uma conta da Caixa Econômica Federal
         """
@@ -121,7 +121,7 @@ class CalculateNumberAccount():
         dv %= 11
         return '0' if dv == 10 else dv
 
-    def calculate_number_account_nubank(self):
+    def calculate_check_digit_account_nubank(self):
         """
             Calcula o dígito verificador de uma conta Nu Pagamentos (Nubank)
         """
@@ -159,32 +159,32 @@ class CalculateNumberAccount():
 
         return inversao[x]
 
-class CalculateNumberAgency():
+class CalculateAgencyCheckDigit():
     def __init__(self, agency):
         self.agency = agency
 
-    def calculate_number_agency_bb(self):
+    def calculate_check_digit_agency_bb(self):
         """
             Calcula número da agência do Banco do Brasil
         """
-        sumSeq = self.calculate_number_agency_generic()    
+        sumSeq = self.calculate_check_digit_agency_generic()
         return Modules().module_bb(sumSeq)
     
-    def calculate_number_agency_bradesco(self):
+    def calculate_check_digit_agency_bradesco(self):
         """
           Calcula número da agência do Bradesco
         """
-        sumSeq = self.calculate_number_agency_generic()
+        sumSeq = self.calculate_check_digit_agency_generic()
         return Modules().module_bradesco_agency(sumSeq)
 
-    def calculate_number_agency_banrisul(self):
+    def calculate_check_digit_agency_banrisul(self):
         """
           Calcula o dígito verificador da agência do banco Banrisul
         """
-        sumSeq = self.calculate_number_agency_generic()
+        sumSeq = self.calculate_check_digit_agency_generic()
         return Modules().module_banrisul_agency(sumSeq)
 
-    def calculate_number_agency_generic(self):
+    def calculate_check_digit_agency_generic(self):
         numbers = []
         for number in self.agency:
             numbers.append(number)

@@ -50,7 +50,7 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateNumberAccount(account).caculate_number_account_bb()
+        calculate_account = CalculateNumberAccount(account).caculate_check_digit_account_bb()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -73,7 +73,7 @@ class AccountValidator(CommonValidate):
             raise InvalidAccountNumber()
         
         account_agency = account + self.config('agency')
-        calculate_account = CalculateNumberAccount(account_agency).calculate_number_account_itau()
+        calculate_account = CalculateNumberAccount(account_agency).calculate_check_digit_account_itau()
         
         if not calculate_account:
             raise InvalidAccountNumber()
@@ -95,7 +95,7 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateNumberAccount(account).calculate_number_account_bradesco()
+        calculate_account = CalculateNumberAccount(account).calculate_check_digit_account_bradesco()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -117,7 +117,7 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateNumberAccount(account).calculate_number_account_santander()
+        calculate_account = CalculateNumberAccount(account).calculate_check_digit_account_santander()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -139,7 +139,7 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateNumberAccount(account).calculate_number_account_citibank()
+        calculate_account = CalculateNumberAccount(account).calculate_check_digit_account_citibank()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -161,7 +161,7 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateNumberAccount(account).calculate_number_account_banrisul()
+        calculate_account = CalculateNumberAccount(account).calculate_check_digit_account_banrisul()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -183,7 +183,7 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateNumberAccount(account).calculate_number_account_caixa()
+        calculate_account = CalculateNumberAccount(account).calculate_check_digit_account_caixa()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -205,7 +205,7 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateNumberAccount(account).calculate_number_account_nubank()
+        calculate_account = CalculateNumberAccount(account).calculate_check_digit_account_nubank()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()

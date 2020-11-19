@@ -67,7 +67,7 @@ class AgencyValidator(CommonValidate):
         if result == False:
             raise InvalidDigitAgencyNumber(agency)
 
-        calculated_agency_digit = CalculateNumberAgency.calculate_number_agency_bb(digit_agency)
+        calculated_agency_digit = CalculateNumberAgency.calculate_check_digit_agency_bb(digit_agency)
 
         if not calculated_agency_digit:
             raise InvalidDigitAgencyNumber()
@@ -103,7 +103,7 @@ class AgencyValidator(CommonValidate):
         if result == False:
             raise InvalidDigitAgencyNumber(agency)
 
-        calculated_agency_digit = CalculateNumberAgency.calculate_number_agency_bradesco(digit_agency)
+        calculated_agency_digit = CalculateNumberAgency.calculate_check_digit_agency_bradesco(digit_agency)
 
         if not calculated_agency_digit:
             raise InvalidDigitAgencyNumber()
@@ -138,7 +138,7 @@ class AgencyValidator(CommonValidate):
         if result == False:
             raise InvalidDigitAgencyNumber(agency)
 
-        calculated_agency_digit = CalculateNumberAgency.calculate_number_agency_banrisul(digit_agency)
+        calculated_agency_digit = CalculateNumberAgency.calculate_check_digit_agency_banrisul(digit_agency)
 
         if not calculated_agency_digit:
             raise InvalidDigitAgencyNumber()
