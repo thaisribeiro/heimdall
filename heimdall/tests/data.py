@@ -1024,3 +1024,9 @@ ITAU = {
         {'bank_code': '341', 'branch': '1449', 'branch_digit': '', 'account': '26762', 'account_digit': '7'},
     ]
 }
+
+CITIBANK = {
+    'valid_combinations': [
+        {'bank_code': '745', 'branch': '0075', 'branch_digit': '', 'account': '0007500465', 'account_digit': '8'}
+    ]
+}

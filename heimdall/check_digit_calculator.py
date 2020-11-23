@@ -61,12 +61,16 @@ class CalculateAccountCheckDigit:
 
     def calculate_check_digit_account_citibank(self):
         """
-            Calcula o dígito verificador do banco Citibank
+            Calcula o dígito verificador da conta do banco Citibank
         """
-        numbers = [0, 0, 0]
+        numbers = []
+        left_zeros = 10 - len(self.account)
+
+        for x in range(left_zeros):
+            numbers.append('0')
 
         for number in self.account:
-            numbers.append(numbers)
+            numbers.append(number)
 
         sumSeq = 0
         for i in range(len(numbers)):
@@ -255,7 +259,7 @@ class Modules():
         if module == 0:
             return '0'
 
-        return (11 - module)
+        return str(int(11 - module))
 
     @staticmethod
     def module_bradesco_agency(sumSeq):
