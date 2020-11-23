@@ -103,10 +103,13 @@ class CalculateAccountCheckDigit:
 
     def calculate_check_digit_account_itau(self):
         """
-            Calcula o número da conta do Itau
+            Calcula o dígito verificador da conta do Itau
         """
         numbers = []
-        for number in self.account:
+
+        relevant_data = self.agency + self.account
+
+        for number in relevant_data:
             numbers.append(number)
 
         sumSeq = 0
@@ -118,7 +121,7 @@ class CalculateAccountCheckDigit:
             if sequence > 9:
                 numbers_sequence = []
 
-                for n in sequence:
+                for n in list(str(sequence)):
                     numbers_sequence.append(n)
 
                 sequence = 0

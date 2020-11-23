@@ -721,6 +721,7 @@ BRADESCO = {
 
 ITAU = {
     'valid_combinations': [
+        {'bank_code': '341', 'branch': '2545', 'branch_digit': '', 'account': '02366', 'account_digit': '1'},
         {'bank_code': '341', 'branch': '4122', 'branch_digit': '', 'account': '08781', 'account_digit': '2'},
         {'bank_code': '341', 'branch': '6629', 'branch_digit': '', 'account': '00487', 'account_digit': '7'},
         {'bank_code': '341', 'branch': '8613', 'branch_digit': '', 'account': '30393', 'account_digit': '5'},
@@ -841,7 +842,7 @@ ITAU = {
         {'bank_code': '341', 'branch': '7070', 'branch_digit': '', 'account': '07492', 'account_digit': '2'},
         {'bank_code': '341', 'branch': '0445', 'branch_digit': '', 'account': '32128', 'account_digit': '4'},
         {'bank_code': '341', 'branch': '9692', 'branch_digit': '', 'account': '00861', 'account_digit': '9'},
-        {'bank_code': '341', 'branch': '0646', 'branch_digit': '', 'account': '1639', 'account_digit': '4'},
+        {'bank_code': '341', 'branch': '0646', 'branch_digit': '', 'account': '01639', 'account_digit': '4'},
         {'bank_code': '341', 'branch': '8723', 'branch_digit': '', 'account': '09311', 'account_digit': '1'},
         {'bank_code': '341', 'branch': '6968', 'branch_digit': '', 'account': '01098', 'account_digit': '0'},
         {'bank_code': '341', 'branch': '9093', 'branch_digit': '', 'account': '01069', 'account_digit': '3'},
@@ -888,7 +889,7 @@ ITAU = {
         {'bank_code': '341', 'branch': '0940', 'branch_digit': '', 'account': '64043', 'account_digit': '6'},
         {'bank_code': '341', 'branch': '8652', 'branch_digit': '', 'account': '04313', 'account_digit': '7'},
         {'bank_code': '341', 'branch': '0709', 'branch_digit': '', 'account': '10314', 'account_digit': '7'},
-        {'bank_code': '341', 'branch': '7007', 'branch_digit': '', 'account': '504', 'account_digit': '9'},
+        {'bank_code': '341', 'branch': '7007', 'branch_digit': '', 'account': '00504', 'account_digit': '9'},
         {'bank_code': '341', 'branch': '0776', 'branch_digit': '', 'account': '68025', 'account_digit': '8'},
         {'bank_code': '341', 'branch': '2934', 'branch_digit': '', 'account': '09853', 'account_digit': '0'},
         {'bank_code': '341', 'branch': '9134', 'branch_digit': '', 'account': '11428', 'account_digit': '0'},
@@ -942,7 +943,7 @@ ITAU = {
         {'bank_code': '341', 'branch': '9667', 'branch_digit': '', 'account': '10898', 'account_digit': '0'},
         {'bank_code': '341', 'branch': '6427', 'branch_digit': '', 'account': '18970', 'account_digit': '6'},
         {'bank_code': '341', 'branch': '3075', 'branch_digit': '', 'account': '19116', 'account_digit': '7'},
-        {'bank_code': '341', 'branch': '4085', 'branch_digit': '', 'account': '3818', 'account_digit': '2'},
+        {'bank_code': '341', 'branch': '4085', 'branch_digit': '', 'account': '03818', 'account_digit': '2'},
         {'bank_code': '341', 'branch': '7157', 'branch_digit': '', 'account': '00345', 'account_digit': '5'},
         {'bank_code': '341', 'branch': '8463', 'branch_digit': '', 'account': '09932', 'account_digit': '8'},
         {'bank_code': '341', 'branch': '0572', 'branch_digit': '', 'account': '20513', 'account_digit': '6'},
@@ -973,7 +974,7 @@ ITAU = {
         {'bank_code': '341', 'branch': '3813', 'branch_digit': '', 'account': '16648', 'account_digit': '9'},
         {'bank_code': '341', 'branch': '1269', 'branch_digit': '', 'account': '06760', 'account_digit': '7'},
         {'bank_code': '341', 'branch': '0548', 'branch_digit': '', 'account': '35927', 'account_digit': '2'},
-        {'bank_code': '341', 'branch': '8809', 'branch_digit': '', 'account': '9885', 'account_digit': '1'},
+        {'bank_code': '341', 'branch': '8809', 'branch_digit': '', 'account': '09885', 'account_digit': '1'},
         {'bank_code': '341', 'branch': '1370', 'branch_digit': '', 'account': '06949', 'account_digit': '2'},
         {'bank_code': '341', 'branch': '0129', 'branch_digit': '', 'account': '34430', 'account_digit': '5'},
         {'bank_code': '341', 'branch': '2959', 'branch_digit': '', 'account': '13026', 'account_digit': '7'},
