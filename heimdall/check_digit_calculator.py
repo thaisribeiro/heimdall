@@ -168,19 +168,16 @@ class CalculateAccountCheckDigit:
                    [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
                    [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]]
 
-        inversao = [0, 4, 3, 2, 1, 5, 6, 7, 8, 9]
+        account_with_zero = str(self.account) + '0'
 
-        number = tuple(int(n) for n in reversed(str(self.account)))
-        i = len(number)
-        j = 0
-        x = 0
+        number = tuple(int(n) for n in reversed(str(account_with_zero)))
+        check = 0
+        for i, n in enumerate(number):
+            check = multiplicacao[check][permuta[i % 8][n]]
 
-        while i > 0:
-            i -= 1
-            j += 1
-            x = multiplicacao[x][permuta[(j % 8)][int(number[i])]]
+        check_digit = multiplicacao[check].index(0)
 
-        return str(inversao[x])
+        return str(check_digit)
 
 
 class CalculateAgencyCheckDigit:
