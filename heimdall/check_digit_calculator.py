@@ -73,7 +73,7 @@ class CalculateAccountCheckDigit():
     
     def calculate_check_digit_account_bradesco(self):
         """
-            Calcula numero da conta do Bradesco
+            Calcula o dígito verificador da conta do Bradesco
         """
         numbers = []
         left_zeros = 7 - len(self.account)
