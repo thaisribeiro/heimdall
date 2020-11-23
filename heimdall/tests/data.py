@@ -563,11 +563,12 @@ CAIXA_ECONOMICA_FEDERAL = {
 
 BRADESCO = {
     'valid_combinations': [
+        {'bank_code': '237', 'branch': '2377', 'branch_digit': '9', 'account': '0238069', 'account_digit': '2'},
         {'bank_code': '237', 'branch': '2377', 'branch_digit': '9', 'account': '0002158', 'account_digit': '0'},
         {'bank_code': '237', 'branch': '1842', 'branch_digit': '2', 'account': '42582', 'account_digit': '6'},
         {'bank_code': '237', 'branch': '2308', 'branch_digit': '6', 'account': '8743', 'account_digit': '2'},
         {'bank_code': '237', 'branch': '2883', 'branch_digit': '5', 'account': '19678', 'account_digit': '9'},
-        {'bank_code': '237', 'branch': '1493', 'branch_digit': '1', 'account': '00004218', 'account_digit': '8'},
+        {'bank_code': '237', 'branch': '1493', 'branch_digit': '1', 'account': '0004218', 'account_digit': '8'},
         {'bank_code': '237', 'branch': '0138', 'branch_digit': '4', 'account': '0125350', 'account_digit': '6'},
         {'bank_code': '237', 'branch': '3209', 'branch_digit': '3', 'account': '82826', 'account_digit': '2'},
         {'bank_code': '237', 'branch': '3568', 'branch_digit': '8', 'account': '0572396', 'account_digit': '5'},

@@ -58,6 +58,7 @@ class CalculateAccountCheckDigit():
             Calcula o dígito verificador do banco Citibank
         """
         numbers = [0,0,0]
+
         for number in self.account:
             numbers.append(numbers)
 
@@ -75,8 +76,13 @@ class CalculateAccountCheckDigit():
             Calcula numero da conta do Bradesco
         """
         numbers = []
+        left_zeros = 7 - len(self.account)
+
+        for x in range(left_zeros):
+            numbers.append('0')
+
         for number in self.account:
-            numbers.append(numbers)
+            numbers.append(number)
         
         sumSeq = 0
         for i in range(len(numbers)):
