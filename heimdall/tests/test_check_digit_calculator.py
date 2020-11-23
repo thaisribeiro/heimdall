@@ -1,7 +1,7 @@
 import unittest
 
 from heimdall.check_digit_calculator import CalculateAgencyCheckDigit, CalculateAccountCheckDigit
-from heimdall.tests.data import BANCO_DO_BRASIL, BRADESCO, BANRISUL, CAIXA_ECONOMICA_FEDERAL
+from heimdall.tests.data import BANCO_DO_BRASIL, BRADESCO, BANRISUL, CAIXA_ECONOMICA_FEDERAL, SANTANDER
 
 
 class TestCheckDigitCalculator(unittest.TestCase):
@@ -19,7 +19,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
             account = bank_data['account'],
             account = account[0]
             digit = bank_data['account_digit']
-            digit_calculated = CalculateAccountCheckDigit(account).calculate_check_digit_account_bb()
+            digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_bb()
             assert digit_calculated == digit
 
     def test_calculate_check_digit_agency_bradesco(self):
@@ -41,7 +41,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
             account = bank_data['account'],
             account = account[0]
             digit = bank_data['account_digit']
-            digit_calculated = CalculateAccountCheckDigit(account).calculate_check_digit_account_bradesco()
+            digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_bradesco()
             is_valid = False
             if digit == '0':
                 is_valid = (digit_calculated == '0' or digit_calculated == 'P')
@@ -61,7 +61,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
         for bank_data in BANRISUL['correct_account']:
             account = bank_data[0]
             digit = bank_data[1]
-            digit_calculated = CalculateAccountCheckDigit(account).calculate_check_digit_account_banrisul()
+            digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_banrisul()
             assert digit_calculated == digit
 
     def test_calculate_check_digit_account_caixa_economica(self):
@@ -71,7 +71,17 @@ class TestCheckDigitCalculator(unittest.TestCase):
             agency = bank_data['branch'],
             agency = agency[0]
             digit = bank_data['account_digit']
-            digit_calculated = CalculateAccountCheckDigit(agency + account).calculate_check_digit_account_caixa()
+            digit_calculated = CalculateAccountCheckDigit(account, agency).calculate_check_digit_account_caixa()
+            assert digit_calculated == digit
+
+    def test_calculate_check_digit_account_santander(self):
+        for bank_data in SANTANDER['valid_combinations']:
+            account = bank_data['account'],
+            account = account[0]
+            agency = bank_data['branch'],
+            agency = agency[0]
+            digit = bank_data['account_digit']
+            digit_calculated = CalculateAccountCheckDigit(account, agency).calculate_check_digit_account_santander()
             assert digit_calculated == digit
 
 
