@@ -3,11 +3,16 @@ class CalculateAccountCheckDigit():
         # account é a conta e o digito
         self.account = account
     
-    def caculate_check_digit_account_bb(self):
+    def calculate_check_digit_account_bb(self):
         """
-            Calcula numero da conta do Banco do Brasil
+            Calcula o dígito verificador da conta do Banco do Brasil
         """
         numbers = []
+        left_zeros = 8 - len(self.account)
+
+        for x in range(left_zeros):
+            numbers.append('0')
+
         for number in self.account:
             numbers.append(number)
 
