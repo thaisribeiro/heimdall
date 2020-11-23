@@ -229,7 +229,7 @@ class Modules():
         if module == 1:
             return 'P'
 
-        return (11 - module)
+        return str(int((11 - module)))
 
     @staticmethod
     def module_citibank_account(sumSeq):
@@ -248,7 +248,7 @@ class Modules():
         if module == 11:
             return '0'
 
-        return str(module)
+        return str(int(module))
 
     @staticmethod
     def module_banrisul_agency(sumSeq):
@@ -256,28 +256,28 @@ class Modules():
         def sum_digits(value):
             return sum([int(x) for x in str(value)])
 
-        first_digit = 10 - ((sum_digits(int(sumSeq.branch[0]) * 1) +
-                             sum_digits(int(sumSeq.branch[1]) * 2) +
-                             sum_digits(int(sumSeq.branch[2]) * 1) +
-                             sum_digits(int(sumSeq.branch[3]) * 2)) % 10)
+        first_digit = 10 - ((sum_digits(int(sumSeq[0]) * 1) +
+                             sum_digits(int(sumSeq[1]) * 2) +
+                             sum_digits(int(sumSeq[2]) * 1) +
+                             sum_digits(int(sumSeq[3]) * 2)) % 10)
 
         if first_digit == 10:
             first_digit = 0
 
-        second_digit = 11 - ((int(sumSeq.branch[0]) * 6 +
-                              int(sumSeq.branch[1]) * 5 +
-                              int(sumSeq.branch[2]) * 4 +
-                              int(sumSeq.branch[3]) * 3 +
+        second_digit = 11 - ((int(sumSeq[0]) * 6 +
+                              int(sumSeq[1]) * 5 +
+                              int(sumSeq[2]) * 4 +
+                              int(sumSeq[3]) * 3 +
                               first_digit * 2) % 11)
 
         if second_digit == 11:
             second_digit = 0
         elif second_digit == 10:
             first_digit = (first_digit + 1) % 10
-            second_digit = 11 - ((int(sumSeq.branch[0]) * 6 +
-                                  int(sumSeq.branch[1]) * 5 +
-                                  int(sumSeq.branch[2]) * 4 +
-                                  int(sumSeq.branch[3]) * 3 +
+            second_digit = 11 - ((int(sumSeq[0]) * 6 +
+                                  int(sumSeq[1]) * 5 +
+                                  int(sumSeq[2]) * 4 +
+                                  int(sumSeq[3]) * 3 +
                                   first_digit * 2) % 11)
 
         return str(first_digit) + str(second_digit)

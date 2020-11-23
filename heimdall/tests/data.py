@@ -310,6 +310,7 @@ SANTANDER = {
 BANRISUL = {
     # FROM: https://www.banrisul.com.br/bob/link/bobw00hn_onde_tem_banrisul.aspx?secao_id=1116
     'correct_data': [
+        ('2664', '18'),
         ('0196', '66'),
         ('0668', '42'),
         ('0330', '14'),
