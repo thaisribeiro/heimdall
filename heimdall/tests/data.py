@@ -1034,6 +1034,11 @@ CITIBANK = {
 
 NUBANK = {
     'valid_combinations': [
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '8719182', 'account_digit': '5'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '2511392', 'account_digit': '1'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '49649347', 'account_digit': '9'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '4926441', 'account_digit': '3'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '2816358', 'account_digit': '3'},
         {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '9234876', 'account_digit': '7'},
         {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '7956865', 'account_digit': '6'},
         {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '94801151', 'account_digit': '6'},
