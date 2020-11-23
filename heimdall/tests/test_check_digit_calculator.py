@@ -50,11 +50,18 @@ class TestCheckDigitCalculator(unittest.TestCase):
 
             assert is_valid is True
 
-    def test_sucess_calculate_check_digit_agency_banrisul(self):
-        for bank_data in BANRISUL['correct_data']:
+    def test_calculate_check_digit_agency_banrisul(self):
+        for bank_data in BANRISUL['correct_agency']:
             agency = bank_data[0]
             digit = bank_data[1]
             digit_calculated = CalculateAgencyCheckDigit(agency).calculate_check_digit_agency_banrisul()
+            assert digit_calculated == digit
+
+    def test_calculate_check_digit_account_banrisul(self):
+        for bank_data in BANRISUL['correct_account']:
+            account = bank_data[0]
+            digit = bank_data[1]
+            digit_calculated = CalculateAccountCheckDigit(account).calculate_check_digit_account_banrisul()
             assert digit_calculated == digit
 
 

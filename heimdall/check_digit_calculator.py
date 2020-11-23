@@ -26,9 +26,14 @@ class CalculateAccountCheckDigit():
 
     def calculate_check_digit_account_banrisul(self):
         """
-            Calcula numero da conta do Banrisul
+            Calcula o dígito verificador da conta do Banrisul
         """
         numbers = []
+        left_zeros = 9 - len(self.account)
+
+        for x in range(left_zeros):
+            numbers.append('0')
+
         for number in self.account:
             numbers.append(number)
 
@@ -224,12 +229,12 @@ class Modules():
     def module_eleven(sumSeq):
         module = sumSeq % 11
         if module == 0:
-            return 0
+            return str(0)
         
         if module == 1:
-             return 6
+             return str(6)
 
-        return 11 - module
+        return str(11 - module)
         
     @staticmethod
     def module_bradesco_account(sumSeq):
