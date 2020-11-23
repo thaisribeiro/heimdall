@@ -1,6 +1,10 @@
 class CalculateAccountCheckDigit():
     def __init__(self, account):
-        # account é a conta e o digito
+        """
+          Quando for necessário o número da agencia para o calculo do dígito verificador da conta,
+          o número da conta será enviado concatenado no account
+        """
+
         self.account = account
     
     def calculate_check_digit_account_bb(self):
@@ -130,12 +134,11 @@ class CalculateAccountCheckDigit():
         """
             Calcula o dígito verificador de uma conta da Caixa Econômica Federal
         """
-        account_relevant_data = self.agency + self.account
         pivot = '876543298765432'
-        dv = sum([int(x) * int(y) for x, y in zip(account_relevant_data.zfill(len(pivot)), pivot)])
+        dv = sum([int(x) * int(y) for x, y in zip(self.account.zfill(len(pivot)), pivot)])
         dv *= 10
         dv %= 11
-        return '0' if dv == 10 else dv
+        return '0' if dv == 10 else str(dv)
 
     def calculate_check_digit_account_nubank(self):
         """

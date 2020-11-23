@@ -447,6 +447,7 @@ BANRISUL = {
 
 CAIXA_ECONOMICA_FEDERAL = {
     'valid_combinations': [
+        {'bank_code': '104', 'branch': '3009', 'branch_digit': '', 'account': '00100000448', 'account_digit': '6'},
         {'bank_code': '104', 'branch': '3009', 'branch_digit': '', 'account': '00100022679', 'account_digit': '9'},
         {'bank_code': '104', 'branch': '4074', 'branch_digit': '', 'account': '00100023064', 'account_digit': '5'},
         {'bank_code': '104', 'branch': '0323', 'branch_digit': '', 'account': '00100013906', 'account_digit': '2'},

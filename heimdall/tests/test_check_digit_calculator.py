@@ -1,7 +1,7 @@
 import unittest
 
 from heimdall.check_digit_calculator import CalculateAgencyCheckDigit, CalculateAccountCheckDigit
-from heimdall.tests.data import BANCO_DO_BRASIL, BRADESCO, BANRISUL
+from heimdall.tests.data import BANCO_DO_BRASIL, BRADESCO, BANRISUL, CAIXA_ECONOMICA_FEDERAL
 
 
 class TestCheckDigitCalculator(unittest.TestCase):
@@ -62,6 +62,16 @@ class TestCheckDigitCalculator(unittest.TestCase):
             account = bank_data[0]
             digit = bank_data[1]
             digit_calculated = CalculateAccountCheckDigit(account).calculate_check_digit_account_banrisul()
+            assert digit_calculated == digit
+
+    def test_calculate_check_digit_account_caixa_economica(self):
+        for bank_data in CAIXA_ECONOMICA_FEDERAL['valid_combinations']:
+            account = bank_data['account'],
+            account = account[0]
+            agency = bank_data['branch'],
+            agency = agency[0]
+            digit = bank_data['account_digit']
+            digit_calculated = CalculateAccountCheckDigit(agency + account).calculate_check_digit_account_caixa()
             assert digit_calculated == digit
 
 
