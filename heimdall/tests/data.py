@@ -1031,3 +1031,10 @@ CITIBANK = {
         {'bank_code': '745', 'branch': '0075', 'branch_digit': '', 'account': '0007500465', 'account_digit': '8'}
     ]
 }
+
+NUBANK = {
+    'valid_combinations': [
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '9234876', 'account_digit': '7'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '7956865', 'account_digit': '6'}
+    ]
+}

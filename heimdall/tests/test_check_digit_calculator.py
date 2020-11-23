@@ -1,7 +1,8 @@
 import unittest
 
 from heimdall.check_digit_calculator import CalculateAgencyCheckDigit, CalculateAccountCheckDigit
-from heimdall.tests.data import BANCO_DO_BRASIL, BRADESCO, BANRISUL, CAIXA_ECONOMICA_FEDERAL, SANTANDER, CITIBANK, ITAU
+from heimdall.tests.data import BANCO_DO_BRASIL, BRADESCO, BANRISUL, CAIXA_ECONOMICA_FEDERAL, \
+    SANTANDER, CITIBANK, ITAU, NUBANK
 
 
 class TestCheckDigitCalculator(unittest.TestCase):
@@ -64,7 +65,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
             digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_banrisul()
             assert digit_calculated == digit
 
-    def test_calculate_check_digit_account_caixa_economica(self):
+    def test_calculate_check_digit_account_caixa(self):
         for bank_data in CAIXA_ECONOMICA_FEDERAL['valid_combinations']:
             account = bank_data['account'],
             account = account[0]
@@ -88,8 +89,6 @@ class TestCheckDigitCalculator(unittest.TestCase):
         for bank_data in CITIBANK['valid_combinations']:
             account = bank_data['account'],
             account = account[0]
-            agency = bank_data['branch'],
-            agency = agency[0]
             digit = bank_data['account_digit']
             digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_citibank()
             assert digit_calculated == digit
@@ -102,6 +101,24 @@ class TestCheckDigitCalculator(unittest.TestCase):
             agency = agency[0]
             digit = bank_data['account_digit']
             digit_calculated = CalculateAccountCheckDigit(account, agency).calculate_check_digit_account_itau()
+            assert digit_calculated == digit
+
+    def test_calculate_check_digit_account_itau(self):
+        for bank_data in ITAU['valid_combinations']:
+            account = bank_data['account'],
+            account = account[0]
+            agency = bank_data['branch'],
+            agency = agency[0]
+            digit = bank_data['account_digit']
+            digit_calculated = CalculateAccountCheckDigit(account, agency).calculate_check_digit_account_itau()
+            assert digit_calculated == digit
+
+    def test_calculate_check_digit_account_nubank(self):
+        for bank_data in NUBANK['valid_combinations']:
+            account = bank_data['account'],
+            account = account[0]
+            digit = bank_data['account_digit']
+            digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_nubank()
             assert digit_calculated == digit
 
 if __name__ == '__main__':

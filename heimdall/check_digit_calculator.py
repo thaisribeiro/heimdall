@@ -180,7 +180,7 @@ class CalculateAccountCheckDigit:
             j += 1
             x = multiplicacao[x][permuta[(j % 8)][int(number[i])]]
 
-        return inversao[x]
+        return str(inversao[x])
 
 
 class CalculateAgencyCheckDigit:
