@@ -2,11 +2,11 @@ import re
 from heimdall.common_validate import CommonValidate
 from heimdall.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber, InvalidAccountNumber,
                                           InvalidDigitAccountNumber)
-from heimdall.check_digit_calculator import CalculateAccountCheckDigit
-
+from heimdall.calculate_number_account_digit import CalculateAccount
 
 class AccountValidator(CommonValidate):
     def __init__(self, config):
+        self.agency = config.get('agency')
         self.bank_code = config.get('bank_code')
         self.account = config.get('account')
 
@@ -57,147 +57,141 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculate_account = CalculateAccountCheckDigit(
-            config={'account': account}).calculate_check_digit_account_bb()
+        check_number_calculate_account = CalculateAccount(config={'account': account}).calculate_account_bb()
 
         if not check_number_calculate_account:
             raise InvalidAccountNumber()
 
         return check_number_calculate_account == self.digit_account.upper()
 
-    def valid_account_itau(self):
+    def valid_account_banrisul(self):
         """
-          Valida a conta e o dígito verificador do banco Itaú
-          Tamanho da Conta - 5 Dígitos + 1 DV
+          Valida a conta e o dígito verificador do banco Banrisul
+          Tamanho da Conta - 9 Dígitos + 1 DV (sendo os dois primeiros o tipo de conta)
         """
-        account = self.config('account')
+        if len(self.account) < 10:
+            raise InvalidAccountNumber(10)
 
-        if len(account) < 6:
-            raise InvalidAccountNumber(6)
-
-        result = super().account_is_valid(account)
+        result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
 
-        account_agency = account + self.config('agency')
-        calculate_account = CalculateAccountCheckDigit(
-            account_agency).calculate_check_digit_account_itau()
+        check_number_calculated_account = CalculateAccount(self.account).calculate_account_banrisul()
 
-        if not calculate_account:
+        if not check_number_calculated_account:
             raise InvalidAccountNumber()
 
-        return True
+        return check_number_calculated_account == self.digit_account
 
     def valid_account_bradesco(self):
         """
           Valida a conta e o dígito verificador do banco Bradesco
           Tamanho da Conta - 7 Dígitos + 1 DV
         """
-        account = self.config('account')
-
-        if len(account) < 8:
+        if len(self.account) < 8:
             raise InvalidAccountNumber(8)
 
-        result = super().account_is_valid(account)
+        result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(
-            account).calculate_check_digit_account_bradesco()
+        check_number_calculated_account = CalculateAccount(self.account).calculate_account_bradesco()
 
-        if not calculate_account:
-            raise InvalidDigitAccountNumber()
-
-        return True
-
-    def valid_account_santander(self):
-        """
-          Valida a conta e o dígito verificador do banco Santander
-          Tamanho da Conta - 8 dígitos + 1 DV
-        """
-        account = self.config('account')
-
-        if len(account) < 9:
-            raise InvalidAccountNumber(9)
-
-        result = super().account_is_valid(account)
-
-        if result == False:
+        if not check_number_calculated_account:
             raise InvalidAccountNumber()
+        
+        check_number_informed_account = self.digit_account.upper()
 
-        calculate_account = CalculateAccountCheckDigit(
-            account).calculate_check_digit_account_santander()
-
-        if not calculate_account:
-            raise InvalidDigitAccountNumber()
-
-        return True
+        if check_number_informed_account == '0':
+            return check_number_calculated_account == check_number_informed_account or check_number_calculated_account == 'P'
+        
+        return check_number_calculated_account == check_number_informed_account 
 
     def valid_account_citibank(self):
         """
           Valida a conta e o dígito verificador do banco Banrisul
           Tamanho da Conta - 7 Dígitos + 1 DV
         """
-        account = self.config('account')
-
-        if len(account) < 8:
+    
+        if len(self.account) < 8:
             raise InvalidAccountNumber(8)
 
-        result = super().account_is_valid(account)
+        result = super().account_is_valid(self.account)
 
-        if result == False:
+        if not result:
             raise InvalidAccountNumber()
+        
+        result_digit = super().account_digit_is_valid(self.digit_account)
 
-        calculate_account = CalculateAccountCheckDigit(
-            account).calculate_check_digit_account_citibank()
-
-        if not calculate_account:
+        if not result_digit:
             raise InvalidDigitAccountNumber()
 
         return True
 
-    def valid_account_banrisul(self):
+    def valid_account_itau(self):
         """
-          Valida a conta e o dígito verificador do banco Banrisul
-          Tamanho da Conta - 9 Dígitos + 1 DV (sendo os dois primeiros o tipo de conta)
+          Valida a conta e o dígito verificador do banco Itaú
+          Tamanho da Conta - 5 Dígitos + 1 DV
         """
-        account = self.config('account')
+        if len(self.account) < 6:
+            raise InvalidAccountNumber(6)
 
-        if len(account) < 10:
-            raise InvalidAccountNumber(10)
+        result = super().account_is_valid(self.account)
+        if not result:
+            raise InvalidAccountNumber()
 
-        result = super().account_is_valid(account)
+        result_digit = super().account_digit_is_valid(self.account_digit_is_valid)
+        
+        if not result_digit:
+            raise InvalidDigitAccountNumber()
+        
+        account_agency = self.account + self.agency
+        check_number_calculated_account = CalculateAccount(account_agency).calculate_account_itau()
+
+        if not check_number_calculated_account:
+            raise InvalidAccountNumber()
+
+        return check_number_calculated_account == self.digit_account
+    
+    def valid_account_santander(self):
+        """
+          Valida a conta e o dígito verificador do banco Santander
+          Tamanho da Conta - 8 dígitos + 1 DV
+        """
+
+        if len(self.account) < 9:
+            raise InvalidAccountNumber(9)
+
+        result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
-
-        calculate_account = CalculateAccountCheckDigit(
-            account).calculate_check_digit_account_banrisul()
-
-        if not calculate_account:
+        
+        result_digit = super().account_digit_is_valid(self.digit_account)
+        
+        if not result_digit:
             raise InvalidDigitAccountNumber()
-
+        
         return True
+
 
     def valid_account_caixa(self):
         """
           Valida a conta e o dígito verificador do banco Caixa Econômica Federal
           Tamanho da Conta - 11 Dígitos + 1 DV
         """
-        account = self.config('account')
 
-        if len(account) < 12:
+        if len(self.account) < 12:
             raise InvalidAccountNumber(12)
 
-        result = super().account_is_valid(account)
+        result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(
-            account).calculate_check_digit_account_caixa()
+        calculate_account = CalculateAccount(self.account).calculate_account_caixa()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -209,18 +203,15 @@ class AccountValidator(CommonValidate):
           Valida a conta e o dígito verificador do banco Nu Pagamentos (Nubank)
           Tamanho da Conta - 7 Dígitos + 1 DV
         """
-        account = self.config('account')
-
-        if len(account) < 8:
+        if len(self.account) < 8:
             raise InvalidAccountNumber(8)
 
-        result = super().account_is_valid(account)
+        result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(
-            account).calculate_check_digit_account_nubank()
+        calculate_account = CalculateAccount(self.account).calculate_account_nubank()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()

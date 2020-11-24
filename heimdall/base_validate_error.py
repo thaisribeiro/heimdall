@@ -30,7 +30,7 @@ class InvalidAccountNumber(Exception):
         return f'{self.message}'
 
 class InvalidDigitAccountNumber(Exception):
-    def __init__(self, digit_account):
+    def __init__(self, digit_account=None):
         self.message = 'Dígito da conta não corresponde ao número da conta/agência preenchido'
         super().__init__(self.message)
     

@@ -1,14 +1,14 @@
-class CalculateAccountCheckDigit:
+class CalculateAccount:
     def __init__(self, config):
         self.account = config.get('account')
         self.agency = config.get('agency')
 
-    def calculate_check_digit_account_bb(self):
+    def calculate_account_bb(self):
         """
             Calcula o dígito verificador da conta do Banco do Brasil
         """
         numbers = []
-        if len(self.account):
+        if len(self.account) < 8:
             self.account = '%08d' % int(self.account)
         
         for number in self.account:
@@ -22,15 +22,13 @@ class CalculateAccountCheckDigit:
 
         return Modules().module_bb(sumSeq)
 
-    def calculate_check_digit_account_banrisul(self):
+    def calculate_account_banrisul(self):
         """
             Calcula o dígito verificador da conta do Banrisul
         """
         numbers = []
-        left_zeros = 9 - len(self.account)
-
-        for x in range(left_zeros):
-            numbers.append('0')
+        if len(self.account) < 9:
+            self.account = '%09d' % int(self.account)
 
         for number in self.account:
             numbers.append(number)
@@ -44,7 +42,46 @@ class CalculateAccountCheckDigit:
 
         return Modules().module_eleven(sumSeq)
 
-    def calculate_check_digit_account_santander(self):
+    def calculate_account_bradesco(self):
+        """
+            Calcula o dígito verificador da conta do Bradesco
+        """
+        numbers = []
+        if len(self.account) < 7:
+            self.account = '%07d' % int(self.account)
+
+        for number in self.account:
+            numbers.append(number)
+
+        sumSeq = 0
+        for i in range(len(numbers)):
+            weight = [2, 7, 6, 5, 4, 3, 2]
+            number = int(numbers[i])
+            sumSeq += (number * weight[i])
+
+        return Modules().module_bradesco_account(sumSeq)
+
+    def calculate_account_itau(self):
+        """
+            Calcula o dígito verificador da conta do Itau
+        """
+        numbers = []
+
+        for number in self.account:
+            numbers.append(number)
+
+        sumSeq = 0
+        sequence = 0
+
+        for i in range(len(numbers)):
+            number = int(numbers[i])
+            sequence = number * (2 if i % 2 == 0 else 1)
+            sequence = CalculateAccount._adjust_according_length(sequence)
+            sumSeq += sequence
+
+        return Modules().module_itau(sumSeq)
+
+    def calculate_account_santander(self):
         """
             Calcula o dígito verificador da conta do banco Santander
         """
@@ -57,7 +94,7 @@ class CalculateAccountCheckDigit:
 
         return '0' if result == 10 else str(result)
 
-    def calculate_check_digit_account_citibank(self):
+    def calculate_account_citibank(self):
         """
             Calcula o dígito verificador da conta do banco Citibank
         """
@@ -76,62 +113,9 @@ class CalculateAccountCheckDigit:
             number = int(numbers[i])
             sumSeq += (number * weight[i])
 
-        return Modules().module_citibank_account(sumSeq)
+        return Modules().module_citibank(sumSeq)
 
-    def calculate_check_digit_account_bradesco(self):
-        """
-            Calcula o dígito verificador da conta do Bradesco
-        """
-        numbers = []
-        left_zeros = 7 - len(self.account)
-
-        for x in range(left_zeros):
-            numbers.append('0')
-
-        for number in self.account:
-            numbers.append(number)
-
-        sumSeq = 0
-        for i in range(len(numbers)):
-            weight = [2, 7, 6, 5, 4, 3, 2]
-            number = int(numbers[i])
-            sumSeq += (number * weight[i])
-
-        return Modules().module_bradesco_account(sumSeq)
-
-    def calculate_check_digit_account_itau(self):
-        """
-            Calcula o dígito verificador da conta do Itau
-        """
-        numbers = []
-
-        relevant_data = self.agency + self.account
-
-        for number in relevant_data:
-            numbers.append(number)
-
-        sumSeq = 0
-        sequence = 0
-        for i in range(len(numbers)):
-            number = int(numbers[i])
-            sequence = number * (2 if i % 2 == 0 else 1)
-
-            if sequence > 9:
-                numbers_sequence = []
-
-                for n in list(str(sequence)):
-                    numbers_sequence.append(n)
-
-                sequence = 0
-
-                for idx in range(len(numbers_sequence)):
-                    sequence += int(numbers_sequence[idx])
-
-            sumSeq += sequence
-
-        return Modules().module_itau(sumSeq)
-
-    def calculate_check_digit_account_caixa(self):
+    def calculate_account_caixa(self):
         """
             Calcula o dígito verificador de uma conta da Caixa Econômica Federal
         """
@@ -142,7 +126,7 @@ class CalculateAccountCheckDigit:
         dv %= 11
         return '0' if dv == 10 else str(dv)
 
-    def calculate_check_digit_account_nubank(self):
+    def calculate_account_nubank(self):
         """
             Calcula o dígito verificador de uma conta Nu Pagamentos (Nubank)
         """
@@ -177,34 +161,48 @@ class CalculateAccountCheckDigit:
 
         return str(check_digit)
 
+    @staticmethod
+    def _adjust_according_length(sequence):
+        if sequence > 9:
+            numbers_sequence = []
 
-class CalculateAgencyCheckDigit:
+            for number in list(str(sequence)):
+                numbers_sequence.append(number)
+            
+            sequence = 0
+            
+            for i in range(len(numbers_sequence)):
+                sequence += int(numbers_sequence[i])
+        
+        return sequence
+        
+class CalculateAgency:
     def __init__(self, agency):
         self.agency = agency
 
-    def calculate_check_digit_agency_bb(self):
+    def calculate_agency_bb(self):
         """
             Calcula número da agência do Banco do Brasil
         """
-        sumSeq = CalculateAgencyCheckDigit.calculate_check_digit_agency_generic(self.agency)
+        sumSeq = CalculateAgency.calculate_agency_generic(self.agency)
         return Modules().module_bb(sumSeq)
 
-    def calculate_check_digit_agency_bradesco(self):
+    def calculate_agency_bradesco(self):
         """
           Calcula número da agência do Bradesco
         """
-        sumSeq = CalculateAgencyCheckDigit.calculate_check_digit_agency_generic( self.agency)
+        sumSeq = CalculateAgency.calculate_agency_generic( self.agency)
         return Modules().module_bradesco_agency(sumSeq)
 
-    def calculate_check_digit_agency_banrisul(self):
+    def calculate_agency_banrisul(self):
         """
           Calcula o dígito verificador da agência do banco Banrisul
         """
-        sumSeq = CalculateAgencyCheckDigit.calculate_check_digit_agency_generic(self.agency)
+        sumSeq = CalculateAgency.calculate_agency_generic(self.agency)
         return Modules().module_banrisul_agency(sumSeq)
 
     @staticmethod
-    def calculate_check_digit_agency_generic(agency):
+    def calculate_agency_generic(agency):
         numbers = []
         for number in agency:
             numbers.append(number)
@@ -233,12 +231,12 @@ class Modules():
     def module_eleven(sumSeq):
         module = sumSeq % 11
         if module == 0:
-            return str(0)
+            return 0
 
         if module == 1:
-            return str(6)
+            return 6
 
-        return str(11 - module)
+        return 11 - module
 
     @staticmethod
     def module_bradesco_account(sumSeq):
@@ -252,14 +250,6 @@ class Modules():
         return str(int((11 - module)))
 
     @staticmethod
-    def module_citibank_account(sumSeq):
-        module = sumSeq % 11
-        if module == 0:
-            return '0'
-
-        return str(int(11 - module))
-
-    @staticmethod
     def module_bradesco_agency(sumSeq):
         module = 11 - (sumSeq % 11)
         if module == 10:
@@ -269,6 +259,14 @@ class Modules():
             return '0'
 
         return str(int(module))
+
+    @staticmethod
+    def module_citibank(sumSeq):
+        module = sumSeq % 11
+        if module == 0:
+            return '0'
+
+        return str(int(11 - module))
 
     @staticmethod
     def module_banrisul_agency(sumSeq):
