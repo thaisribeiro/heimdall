@@ -1,18 +1,23 @@
-class CalculateAccountCheckDigit():
-    def __init__(self, account):
-        # account é a conta e o digito
+class CalculateAccountCheckDigit:
+    def __init__(self, account, agency):
         self.account = account
-    
-    def caculate_check_digit_account_bb(self):
+        self.agency = agency
+
+    def calculate_check_digit_account_bb(self):
         """
-            Calcula numero da conta do Banco do Brasil
+            Calcula o dígito verificador da conta do Banco do Brasil
         """
         numbers = []
+        left_zeros = 8 - len(self.account)
+
+        for x in range(left_zeros):
+            numbers.append('0')
+
         for number in self.account:
             numbers.append(number)
 
         sumSeq = 0
-       
+
         for i in range(len(numbers)):
             seq = 9 - i
             sumSeq += (int(numbers[i]) * seq)
@@ -21,16 +26,21 @@ class CalculateAccountCheckDigit():
 
     def calculate_check_digit_account_banrisul(self):
         """
-            Calcula numero da conta do Banrisul
+            Calcula o dígito verificador da conta do Banrisul
         """
         numbers = []
+        left_zeros = 9 - len(self.account)
+
+        for x in range(left_zeros):
+            numbers.append('0')
+
         for number in self.account:
             numbers.append(number)
 
         sumSeq = 0
 
-        for i in range(len(numbers)): 
-            weight = [3,2,4,7,6,5,4,3,2]
+        for i in range(len(numbers)):
+            weight = [3, 2, 4, 7, 6, 5, 4, 3, 2]
             number = int(numbers[i])
             sumSeq += (number * weight[i])
 
@@ -38,23 +48,29 @@ class CalculateAccountCheckDigit():
 
     def calculate_check_digit_account_santander(self):
         """
-            Calcula o dígito verificador do banco Santander
+            Calcula o dígito verificador da conta do banco Santander
         """
+        relevant_data = self.agency + '00' + self.account
         pivot = '97310097131973'
-        values = [int(x) * int(y) for x, y in zip(self.account.zfill(len(pivot)), pivot)]
+        values = [int(x) * int(y) for x, y in zip(relevant_data.zfill(len(pivot)), pivot)]
 
         result = sum(values)
         result = 10 - (result % 10)
 
-        return '0' if result == 10 else result
+        return '0' if result == 10 else str(result)
 
     def calculate_check_digit_account_citibank(self):
         """
-            Calcula o dígito verificador do banco Citibank
+            Calcula o dígito verificador da conta do banco Citibank
         """
-        numbers = [0,0,0]
+        numbers = []
+        left_zeros = 10 - len(self.account)
+
+        for x in range(left_zeros):
+            numbers.append('0')
+
         for number in self.account:
-            numbers.append(numbers)
+            numbers.append(number)
 
         sumSeq = 0
         for i in range(len(numbers)):
@@ -64,29 +80,36 @@ class CalculateAccountCheckDigit():
 
         return Modules().module_citibank_account(sumSeq)
 
-    
     def calculate_check_digit_account_bradesco(self):
         """
-            Calcula numero da conta do Bradesco
+            Calcula o dígito verificador da conta do Bradesco
         """
         numbers = []
+        left_zeros = 7 - len(self.account)
+
+        for x in range(left_zeros):
+            numbers.append('0')
+
         for number in self.account:
-            numbers.append(numbers)
-        
+            numbers.append(number)
+
         sumSeq = 0
         for i in range(len(numbers)):
-            weight = [2,7,6,5,4,3,2]
+            weight = [2, 7, 6, 5, 4, 3, 2]
             number = int(numbers[i])
             sumSeq += (number * weight[i])
 
         return Modules().module_bradesco_account(sumSeq)
-    
+
     def calculate_check_digit_account_itau(self):
         """
-            Calcula o número da conta do Itau
+            Calcula o dígito verificador da conta do Itau
         """
         numbers = []
-        for number in self.account:
+
+        relevant_data = self.agency + self.account
+
+        for number in relevant_data:
             numbers.append(number)
 
         sumSeq = 0
@@ -94,11 +117,11 @@ class CalculateAccountCheckDigit():
         for i in range(len(numbers)):
             number = int(numbers[i])
             sequence = number * (2 if i % 2 == 0 else 1)
-            
+
             if sequence > 9:
                 numbers_sequence = []
 
-                for n in sequence:
+                for n in list(str(sequence)):
                     numbers_sequence.append(n)
 
                 sequence = 0
@@ -114,12 +137,12 @@ class CalculateAccountCheckDigit():
         """
             Calcula o dígito verificador de uma conta da Caixa Econômica Federal
         """
-        account_relevant_data = self.agency + self.account
         pivot = '876543298765432'
-        dv = sum([int(x) * int(y) for x, y in zip(account_relevant_data.zfill(len(pivot)), pivot)])
+        relevant_data = self.agency + self.account
+        dv = sum([int(x) * int(y) for x, y in zip(relevant_data.zfill(len(pivot)), pivot)])
         dv *= 10
         dv %= 11
-        return '0' if dv == 10 else dv
+        return '0' if dv == 10 else str(dv)
 
     def calculate_check_digit_account_nubank(self):
         """
@@ -145,21 +168,19 @@ class CalculateAccountCheckDigit():
                    [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
                    [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]]
 
-        inversao = [0, 4, 3, 2, 1, 5, 6, 7, 8, 9]
+        account_with_zero = str(self.account) + '0'
 
-        number = tuple(int(n) for n in reversed(str(self.account)))
-        i = len(number)
-        j = 0
-        x = 0
+        number = tuple(int(n) for n in reversed(str(account_with_zero)))
+        check = 0
+        for i, n in enumerate(number):
+            check = multiplicacao[check][permuta[i % 8][n]]
 
-        while i > 0:
-            i -= 1
-            j += 1
-            x = multiplicacao[x][permuta[(j % 8)][int(number[i])]]
+        check_digit = multiplicacao[check].index(0)
 
-        return inversao[x]
+        return str(check_digit)
 
-class CalculateAgencyCheckDigit():
+
+class CalculateAgencyCheckDigit:
     def __init__(self, agency):
         self.agency = agency
 
@@ -169,7 +190,7 @@ class CalculateAgencyCheckDigit():
         """
         sumSeq = self.calculate_check_digit_agency_generic(self.agency)
         return Modules().module_bb(sumSeq)
-    
+
     def calculate_check_digit_agency_bradesco(self):
         """
           Calcula número da agência do Bradesco
@@ -189,14 +210,15 @@ class CalculateAgencyCheckDigit():
         numbers = []
         for number in agency:
             numbers.append(number)
-        
+
         sumSeq = 0
-        
+
         for i in range(len(numbers)):
             seq = 5 - i
             sumSeq += (float(numbers[i]) * seq)
 
         return sumSeq
+
 
 class Modules():
     @staticmethod
@@ -206,30 +228,30 @@ class Modules():
             return 'X'
         if result == 11:
             return '0'
-        
+
         return str(int(result))
-    
+
     @staticmethod
     def module_eleven(sumSeq):
         module = sumSeq % 11
         if module == 0:
-            return 0
-        
-        if module == 1:
-             return 6
+            return str(0)
 
-        return 11 - module
-        
+        if module == 1:
+            return str(6)
+
+        return str(11 - module)
+
     @staticmethod
     def module_bradesco_account(sumSeq):
         module = sumSeq % 11
         if module == 0:
-            return '0' 
+            return '0'
 
         if module == 1:
             return 'P'
 
-        return (11 - module)
+        return str(int((11 - module)))
 
     @staticmethod
     def module_citibank_account(sumSeq):
@@ -237,18 +259,18 @@ class Modules():
         if module == 0:
             return '0'
 
-        return (11 - module)
-    
+        return str(int(11 - module))
+
     @staticmethod
     def module_bradesco_agency(sumSeq):
         module = 11 - (sumSeq % 11)
         if module == 10:
-            return 'P' 
+            return 'P'
 
         if module == 11:
             return '0'
 
-        return str(module)
+        return str(int(module))
 
     @staticmethod
     def module_banrisul_agency(sumSeq):
@@ -256,28 +278,28 @@ class Modules():
         def sum_digits(value):
             return sum([int(x) for x in str(value)])
 
-        first_digit = 10 - ((sum_digits(int(sumSeq.branch[0]) * 1) +
-                             sum_digits(int(sumSeq.branch[1]) * 2) +
-                             sum_digits(int(sumSeq.branch[2]) * 1) +
-                             sum_digits(int(sumSeq.branch[3]) * 2)) % 10)
+        first_digit = 10 - ((sum_digits(int(sumSeq[0]) * 1) +
+                             sum_digits(int(sumSeq[1]) * 2) +
+                             sum_digits(int(sumSeq[2]) * 1) +
+                             sum_digits(int(sumSeq[3]) * 2)) % 10)
 
         if first_digit == 10:
             first_digit = 0
 
-        second_digit = 11 - ((int(sumSeq.branch[0]) * 6 +
-                              int(sumSeq.branch[1]) * 5 +
-                              int(sumSeq.branch[2]) * 4 +
-                              int(sumSeq.branch[3]) * 3 +
+        second_digit = 11 - ((int(sumSeq[0]) * 6 +
+                              int(sumSeq[1]) * 5 +
+                              int(sumSeq[2]) * 4 +
+                              int(sumSeq[3]) * 3 +
                               first_digit * 2) % 11)
 
         if second_digit == 11:
             second_digit = 0
         elif second_digit == 10:
             first_digit = (first_digit + 1) % 10
-            second_digit = 11 - ((int(sumSeq.branch[0]) * 6 +
-                                  int(sumSeq.branch[1]) * 5 +
-                                  int(sumSeq.branch[2]) * 4 +
-                                  int(sumSeq.branch[3]) * 3 +
+            second_digit = 11 - ((int(sumSeq[0]) * 6 +
+                                  int(sumSeq[1]) * 5 +
+                                  int(sumSeq[2]) * 4 +
+                                  int(sumSeq[3]) * 3 +
                                   first_digit * 2) % 11)
 
         return str(first_digit) + str(second_digit)
@@ -287,5 +309,5 @@ class Modules():
         module = sumSeq % 10
         if module == 0:
             return '0'
-        
+
         return str((10 - module))

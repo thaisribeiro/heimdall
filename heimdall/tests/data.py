@@ -2,11 +2,12 @@
 
 BANCO_DO_BRASIL = {
     'valid_combinations': [
+        {'bank_code': '001', 'branch': '1584', 'branch_digit': '9', 'account': '00210169', 'account_digit': '6'},
         {'bank_code': '001', 'branch': '0395', 'branch_digit': '6', 'account': '45939', 'account_digit': '9'},
         {'bank_code': '001', 'branch': '2995', 'branch_digit': '5', 'account': '14728', 'account_digit': '1'},
         {'bank_code': '001', 'branch': '7071', 'branch_digit': '8', 'account': '6801908', 'account_digit': '4'},
         {'bank_code': '001', 'branch': '3477', 'branch_digit': '0', 'account': '26135', 'account_digit': '1'},
-        {'bank_code': '001', 'branch': '0229', 'branch_digit': '1', 'account': '12351', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '0229', 'branch_digit': '1', 'account': '12351', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '1403', 'branch_digit': '6', 'account': '2315999', 'account_digit': '5'},
         {'bank_code': '001', 'branch': '3456', 'branch_digit': '8', 'account': '38582', 'account_digit': '4'},
         {'bank_code': '001', 'branch': '4556', 'branch_digit': 'X', 'account': '5159', 'account_digit': '4'},
@@ -15,7 +16,7 @@ BANCO_DO_BRASIL = {
         {'bank_code': '001', 'branch': '3007', 'branch_digit': '4', 'account': '33084', 'account_digit': '1'},
         {'bank_code': '001', 'branch': '4438', 'branch_digit': '5', 'account': '6723', 'account_digit': '7'},
         {'bank_code': '001', 'branch': '4850', 'branch_digit': 'X', 'account': '6649', 'account_digit': '4'},
-        {'bank_code': '001', 'branch': '0107', 'branch_digit': '4', 'account': '8428', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '0107', 'branch_digit': '4', 'account': '8428', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '4267', 'branch_digit': '6', 'account': '45542', 'account_digit': '3'},
         {'bank_code': '001', 'branch': '2443', 'branch_digit': '0', 'account': '5341', 'account_digit': '4'},
         {'bank_code': '001', 'branch': '4723', 'branch_digit': '6', 'account': '300696', 'account_digit': '4'},
@@ -46,7 +47,7 @@ BANCO_DO_BRASIL = {
         {'bank_code': '001', 'branch': '0987', 'branch_digit': '3', 'account': '5993', 'account_digit': '5'},
         {'bank_code': '001', 'branch': '0675', 'branch_digit': '0', 'account': '8376', 'account_digit': '3'},
         {'bank_code': '001', 'branch': '1245', 'branch_digit': '9', 'account': '34087', 'account_digit': '1'},
-        {'bank_code': '001', 'branch': '1578', 'branch_digit': '4', 'account': '2965033', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '1578', 'branch_digit': '4', 'account': '2965033', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '3510', 'branch_digit': '6', 'account': '29111', 'account_digit': '0'},
         {'bank_code': '001', 'branch': '3430', 'branch_digit': '4', 'account': '22566', 'account_digit': '5'},
         {'bank_code': '001', 'branch': '5899', 'branch_digit': '8', 'account': '52739', 'account_digit': '4'},
@@ -56,7 +57,7 @@ BANCO_DO_BRASIL = {
         {'bank_code': '001', 'branch': '3007', 'branch_digit': '4', 'account': '39624', 'account_digit': '9'},
         {'bank_code': '001', 'branch': '0386', 'branch_digit': '7', 'account': '78427', 'account_digit': '3'},
         {'bank_code': '001', 'branch': '2447', 'branch_digit': '3', 'account': '45811', 'account_digit': '2'},
-        {'bank_code': '001', 'branch': '3055', 'branch_digit': '4', 'account': '18232', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '3055', 'branch_digit': '4', 'account': '18232', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '1101', 'branch_digit': '0', 'account': '22471', 'account_digit': '5'},
         {'bank_code': '001', 'branch': '6986', 'branch_digit': '8', 'account': '800217', 'account_digit': '7'},
         {'bank_code': '001', 'branch': '6838', 'branch_digit': '1', 'account': '217959', 'account_digit': '8'},
@@ -69,7 +70,7 @@ BANCO_DO_BRASIL = {
         {'bank_code': '001', 'branch': '0080', 'branch_digit': '9', 'account': '66548', 'account_digit': '7'},
         {'bank_code': '001', 'branch': '4598', 'branch_digit': '5', 'account': '16496', 'account_digit': '8'},
         {'bank_code': '001', 'branch': '2324', 'branch_digit': '8', 'account': '27638', 'account_digit': '3'},
-        {'bank_code': '001', 'branch': '2897', 'branch_digit': '5', 'account': '32356', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '2897', 'branch_digit': '5', 'account': '32356', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '3512', 'branch_digit': '2', 'account': '4556849', 'account_digit': '9'},
         {'bank_code': '001', 'branch': '4451', 'branch_digit': '2', 'account': '7819', 'account_digit': '0'},
         {'bank_code': '001', 'branch': '1237', 'branch_digit': '8', 'account': '552615', 'account_digit': '9'},
@@ -95,7 +96,7 @@ BANCO_DO_BRASIL = {
         {'bank_code': '001', 'branch': '2945', 'branch_digit': '9', 'account': '721086', 'account_digit': '8'},
         {'bank_code': '001', 'branch': '2047', 'branch_digit': '8', 'account': '9792', 'account_digit': '6'},
         {'bank_code': '001', 'branch': '2363', 'branch_digit': '9', 'account': '22204', 'account_digit': '6'},
-        {'bank_code': '001', 'branch': '3556', 'branch_digit': '4', 'account': '21812', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '3556', 'branch_digit': '4', 'account': '21812', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '8328', 'branch_digit': '3', 'account': '8745', 'account_digit': '9'},
         {'bank_code': '001', 'branch': '5761', 'branch_digit': '4', 'account': '746063', 'account_digit': '5'},
         {'bank_code': '001', 'branch': '6761', 'branch_digit': 'X', 'account': '58766', 'account_digit': '4'},
@@ -146,11 +147,11 @@ BANCO_DO_BRASIL = {
         {'bank_code': '001', 'branch': '1267', 'branch_digit': 'X', 'account': '30369', 'account_digit': '0'},
         {'bank_code': '001', 'branch': '7150', 'branch_digit': '1', 'account': '302262', 'account_digit': '5'},
         {'bank_code': '001', 'branch': '4599', 'branch_digit': '3', 'account': '6939', 'account_digit': '6'},
-        {'bank_code': '001', 'branch': '3283', 'branch_digit': '2', 'account': '12995', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '3283', 'branch_digit': '2', 'account': '12995', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '3330', 'branch_digit': '8', 'account': '0723084', 'account_digit': '2'},
         {'bank_code': '001', 'branch': '8428', 'branch_digit': 'X', 'account': '107369', 'account_digit': '9'},
         {'bank_code': '001', 'branch': '3599', 'branch_digit': '8', 'account': '20075', 'account_digit': '1'},
-        {'bank_code': '001', 'branch': '2299', 'branch_digit': '3', 'account': '6937', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '2299', 'branch_digit': '3', 'account': '6937', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '6882', 'branch_digit': '9', 'account': '45288', 'account_digit': '2'},
         {'bank_code': '001', 'branch': '0098', 'branch_digit': '1', 'account': '8143', 'account_digit': '4'},
         {'bank_code': '001', 'branch': '0210', 'branch_digit': '0', 'account': '39891', 'account_digit': '8'},
@@ -178,7 +179,7 @@ BANCO_DO_BRASIL = {
         {'bank_code': '001', 'branch': '3648', 'branch_digit': 'X', 'account': '23784', 'account_digit': '1'},
         {'bank_code': '001', 'branch': '6522', 'branch_digit': '6', 'account': '7519', 'account_digit': '1'},
         {'bank_code': '001', 'branch': '7076', 'branch_digit': '9', 'account': '6090508', 'account_digit': '5'},
-        {'bank_code': '001', 'branch': '1192', 'branch_digit': '4', 'account': '35774', 'account_digit': 'x'},
+        {'bank_code': '001', 'branch': '1192', 'branch_digit': '4', 'account': '35774', 'account_digit': 'X'},
         {'bank_code': '001', 'branch': '3599', 'branch_digit': '8', 'account': '2', 'account_digit': '7'},
         {'bank_code': '001', 'branch': '3602', 'branch_digit': '1', 'account': '0437963', 'account_digit': '2'},
     ],
@@ -308,8 +309,8 @@ SANTANDER = {
 }
 
 BANRISUL = {
-    # FROM: https://www.banrisul.com.br/bob/link/bobw00hn_onde_tem_banrisul.aspx?secao_id=1116
-    'correct_data': [
+    'correct_agency': [
+        ('2664', '18'),
         ('0196', '66'),
         ('0668', '42'),
         ('0330', '14'),
@@ -436,11 +437,17 @@ BANRISUL = {
         ('0043', '08'),
         ('0856', '50'),
         ('0851', '62'),
+    ],
+    'correct_account': [
+        ('358507671', '8'),
+        ('358507670', '6'),
+        ('358507675', '0')
     ]
 }
 
 CAIXA_ECONOMICA_FEDERAL = {
     'valid_combinations': [
+        {'bank_code': '104', 'branch': '3009', 'branch_digit': '', 'account': '00100000448', 'account_digit': '6'},
         {'bank_code': '104', 'branch': '3009', 'branch_digit': '', 'account': '00100022679', 'account_digit': '9'},
         {'bank_code': '104', 'branch': '4074', 'branch_digit': '', 'account': '00100023064', 'account_digit': '5'},
         {'bank_code': '104', 'branch': '0323', 'branch_digit': '', 'account': '00100013906', 'account_digit': '2'},
@@ -561,11 +568,12 @@ CAIXA_ECONOMICA_FEDERAL = {
 
 BRADESCO = {
     'valid_combinations': [
+        {'bank_code': '237', 'branch': '2377', 'branch_digit': '9', 'account': '0238069', 'account_digit': '2'},
         {'bank_code': '237', 'branch': '2377', 'branch_digit': '9', 'account': '0002158', 'account_digit': '0'},
         {'bank_code': '237', 'branch': '1842', 'branch_digit': '2', 'account': '42582', 'account_digit': '6'},
         {'bank_code': '237', 'branch': '2308', 'branch_digit': '6', 'account': '8743', 'account_digit': '2'},
         {'bank_code': '237', 'branch': '2883', 'branch_digit': '5', 'account': '19678', 'account_digit': '9'},
-        {'bank_code': '237', 'branch': '1493', 'branch_digit': '1', 'account': '00004218', 'account_digit': '8'},
+        {'bank_code': '237', 'branch': '1493', 'branch_digit': '1', 'account': '0004218', 'account_digit': '8'},
         {'bank_code': '237', 'branch': '0138', 'branch_digit': '4', 'account': '0125350', 'account_digit': '6'},
         {'bank_code': '237', 'branch': '3209', 'branch_digit': '3', 'account': '82826', 'account_digit': '2'},
         {'bank_code': '237', 'branch': '3568', 'branch_digit': '8', 'account': '0572396', 'account_digit': '5'},
@@ -713,6 +721,7 @@ BRADESCO = {
 
 ITAU = {
     'valid_combinations': [
+        {'bank_code': '341', 'branch': '2545', 'branch_digit': '', 'account': '02366', 'account_digit': '1'},
         {'bank_code': '341', 'branch': '4122', 'branch_digit': '', 'account': '08781', 'account_digit': '2'},
         {'bank_code': '341', 'branch': '6629', 'branch_digit': '', 'account': '00487', 'account_digit': '7'},
         {'bank_code': '341', 'branch': '8613', 'branch_digit': '', 'account': '30393', 'account_digit': '5'},
@@ -833,7 +842,7 @@ ITAU = {
         {'bank_code': '341', 'branch': '7070', 'branch_digit': '', 'account': '07492', 'account_digit': '2'},
         {'bank_code': '341', 'branch': '0445', 'branch_digit': '', 'account': '32128', 'account_digit': '4'},
         {'bank_code': '341', 'branch': '9692', 'branch_digit': '', 'account': '00861', 'account_digit': '9'},
-        {'bank_code': '341', 'branch': '0646', 'branch_digit': '', 'account': '1639', 'account_digit': '4'},
+        {'bank_code': '341', 'branch': '0646', 'branch_digit': '', 'account': '01639', 'account_digit': '4'},
         {'bank_code': '341', 'branch': '8723', 'branch_digit': '', 'account': '09311', 'account_digit': '1'},
         {'bank_code': '341', 'branch': '6968', 'branch_digit': '', 'account': '01098', 'account_digit': '0'},
         {'bank_code': '341', 'branch': '9093', 'branch_digit': '', 'account': '01069', 'account_digit': '3'},
@@ -880,7 +889,7 @@ ITAU = {
         {'bank_code': '341', 'branch': '0940', 'branch_digit': '', 'account': '64043', 'account_digit': '6'},
         {'bank_code': '341', 'branch': '8652', 'branch_digit': '', 'account': '04313', 'account_digit': '7'},
         {'bank_code': '341', 'branch': '0709', 'branch_digit': '', 'account': '10314', 'account_digit': '7'},
-        {'bank_code': '341', 'branch': '7007', 'branch_digit': '', 'account': '504', 'account_digit': '9'},
+        {'bank_code': '341', 'branch': '7007', 'branch_digit': '', 'account': '00504', 'account_digit': '9'},
         {'bank_code': '341', 'branch': '0776', 'branch_digit': '', 'account': '68025', 'account_digit': '8'},
         {'bank_code': '341', 'branch': '2934', 'branch_digit': '', 'account': '09853', 'account_digit': '0'},
         {'bank_code': '341', 'branch': '9134', 'branch_digit': '', 'account': '11428', 'account_digit': '0'},
@@ -934,7 +943,7 @@ ITAU = {
         {'bank_code': '341', 'branch': '9667', 'branch_digit': '', 'account': '10898', 'account_digit': '0'},
         {'bank_code': '341', 'branch': '6427', 'branch_digit': '', 'account': '18970', 'account_digit': '6'},
         {'bank_code': '341', 'branch': '3075', 'branch_digit': '', 'account': '19116', 'account_digit': '7'},
-        {'bank_code': '341', 'branch': '4085', 'branch_digit': '', 'account': '3818', 'account_digit': '2'},
+        {'bank_code': '341', 'branch': '4085', 'branch_digit': '', 'account': '03818', 'account_digit': '2'},
         {'bank_code': '341', 'branch': '7157', 'branch_digit': '', 'account': '00345', 'account_digit': '5'},
         {'bank_code': '341', 'branch': '8463', 'branch_digit': '', 'account': '09932', 'account_digit': '8'},
         {'bank_code': '341', 'branch': '0572', 'branch_digit': '', 'account': '20513', 'account_digit': '6'},
@@ -965,7 +974,7 @@ ITAU = {
         {'bank_code': '341', 'branch': '3813', 'branch_digit': '', 'account': '16648', 'account_digit': '9'},
         {'bank_code': '341', 'branch': '1269', 'branch_digit': '', 'account': '06760', 'account_digit': '7'},
         {'bank_code': '341', 'branch': '0548', 'branch_digit': '', 'account': '35927', 'account_digit': '2'},
-        {'bank_code': '341', 'branch': '8809', 'branch_digit': '', 'account': '9885', 'account_digit': '1'},
+        {'bank_code': '341', 'branch': '8809', 'branch_digit': '', 'account': '09885', 'account_digit': '1'},
         {'bank_code': '341', 'branch': '1370', 'branch_digit': '', 'account': '06949', 'account_digit': '2'},
         {'bank_code': '341', 'branch': '0129', 'branch_digit': '', 'account': '34430', 'account_digit': '5'},
         {'bank_code': '341', 'branch': '2959', 'branch_digit': '', 'account': '13026', 'account_digit': '7'},
@@ -1014,5 +1023,28 @@ ITAU = {
         {'bank_code': '341', 'branch': '3038', 'branch_digit': '', 'account': '30462', 'account_digit': '3'},
         {'bank_code': '341', 'branch': '3130', 'branch_digit': '', 'account': '25578', 'account_digit': '1'},
         {'bank_code': '341', 'branch': '1449', 'branch_digit': '', 'account': '26762', 'account_digit': '7'},
+    ]
+}
+
+CITIBANK = {
+    'valid_combinations': [
+        {'bank_code': '745', 'branch': '0075', 'branch_digit': '', 'account': '0007500465', 'account_digit': '8'}
+    ]
+}
+
+NUBANK = {
+    'valid_combinations': [
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '8719182', 'account_digit': '5'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '2511392', 'account_digit': '1'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '49649347', 'account_digit': '9'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '4926441', 'account_digit': '3'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '2816358', 'account_digit': '3'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '9234876', 'account_digit': '7'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '7956865', 'account_digit': '6'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '94801151', 'account_digit': '6'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '37169257', 'account_digit': '2'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '1767020', 'account_digit': '2'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '3893072', 'account_digit': '9'},
+        {'bank_code': '260', 'branch': '0001', 'branch_digit': '', 'account': '53698696', 'account_digit': '1'}
     ]
 }
