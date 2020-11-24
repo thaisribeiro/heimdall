@@ -13,7 +13,8 @@ class BankValidator():
             '033': 'Santander',
             '745': 'Citibank',
             '399': 'HSBC',
-            '041': 'Banrisul'
+            '041': 'Banrisul',
+            '260': 'Nubank'
         }
 
         bank_valid = switcher.get(self.bank_code)

@@ -118,7 +118,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
             account = bank_data['account'],
             account = account[0]
             digit = bank_data['account_digit']
-            digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_nubank()
+            digit_calculated = CalculateAccountCheckDigit(config={'account': account, 'agency': None }).calculate_check_digit_account_nubank()
             assert digit_calculated == digit
 
 if __name__ == '__main__':

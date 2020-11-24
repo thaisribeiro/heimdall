@@ -146,7 +146,7 @@ class CalculateAccountCheckDigit:
         """
             Calcula o dígito verificador de uma conta Nu Pagamentos (Nubank)
         """
-        multiplicacao = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        inverter_index_table = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                          [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
                          [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
                          [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
@@ -157,7 +157,7 @@ class CalculateAccountCheckDigit:
                          [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
                          [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]]
 
-        permuta = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+        inverter_locate_table = [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
                    [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
                    [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
                    [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
@@ -168,12 +168,12 @@ class CalculateAccountCheckDigit:
 
         account_with_zero = str(self.account) + '0'
 
-        number = tuple(int(n) for n in reversed(str(account_with_zero)))
-        check = 0
-        for i, n in enumerate(number):
-            check = multiplicacao[check][permuta[i % 8][n]]
+        reversed_identify_code = tuple(int(n) for n in reversed(str(account_with_zero)))
+        verificator_index = 0
+        for i, n in enumerate(reversed_identify_code):
+            verificator_index = inverter_index_table[verificator_index][inverter_locate_table[i % 8][n]]
 
-        check_digit = multiplicacao[check].index(0)
+        check_digit = inverter_index_table[verificator_index].index(0)
 
         return str(check_digit)
 
