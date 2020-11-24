@@ -12,7 +12,6 @@ class AccountValidator(CommonValidate):
     def start(self):
         try:
             bank_code = self.config.get('bank_code')
-            account_code = self.config.get('account_code')
 
             switcher = {
                 '001': AccountValidator.valid_account_bb,
@@ -42,7 +41,7 @@ class AccountValidator(CommonValidate):
           Valida a conta e o dígito verificador do Banco do Brasil
           Tamanho da Conta - 8 Dígitos + 1 DV
         """
-        account = self.config('account')
+        account = self.config.get('account')
 
         if len(account) < 9:
             raise InvalidAccountNumber(9)
@@ -52,7 +51,7 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(account).caculate_check_digit_account_bb
+        calculate_account = CalculateAccountCheckDigit(account).caculate_check_digit_account_bb()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()

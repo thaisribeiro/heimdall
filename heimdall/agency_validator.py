@@ -1,6 +1,6 @@
 import re
 from generic_validators import GenericValidators
-from calculate_number_account_agency import CalculateNumberAgency
+from heimdall.check_digit_calculator import CalculateAgencyCheckDigit
 from common_validate import CommonValidate
 from base_validate_error import InvalidAgencyNumber, InvalidDigitAgencyNumber,InvalidAccountNumber, InvalidDigitAccountNumber, InvalidCodeBankP 
 
@@ -59,15 +59,16 @@ class AgencyValidator(CommonValidate):
         agency = self.config('agency')
         digit_agency = self.config.get('digit_agency')
 
-        result = super().agency_is_valid(agency)
+        result_agency = super().agency_is_valid(agency)
+    
         if result == False:
-            raise InvalidAgencyNumber(agency)
+            raise InvalidAgencyNumber()
 
         result = GenericValidators.agency_digit_is_valid(agency)
         if result == False:
             raise InvalidDigitAgencyNumber(agency)
 
-        calculated_agency_digit = CalculateNumberAgency.calculate_check_digit_agency_bb(digit_agency)
+        calculated_agency_digit =  CalculateAgencyCheckDigit(agency).calculate_check_digit_agency_bb()
 
         if not calculated_agency_digit:
             raise InvalidDigitAgencyNumber()

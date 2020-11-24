@@ -174,14 +174,14 @@ class CalculateAgencyCheckDigit():
         """
           Calcula número da agência do Bradesco
         """
-        sumSeq = self.calculate_check_digit_agency_generic()
+        sumSeq = CalculateAgencyCheckDigit.calculate_check_digit_agency_generic( self.agency)
         return Modules().module_bradesco_agency(sumSeq)
 
     def calculate_check_digit_agency_banrisul(self):
         """
           Calcula o dígito verificador da agência do banco Banrisul
         """
-        sumSeq = self.calculate_check_digit_agency_generic()
+        sumSeq = CalculateAgencyCheckDigit.calculate_check_digit_agency_generic(self.agency)
         return Modules().module_banrisul_agency(sumSeq)
 
     @staticmethod
