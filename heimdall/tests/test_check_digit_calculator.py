@@ -20,7 +20,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
             account = bank_data['account'],
             account = account[0]
             digit = bank_data['account_digit']
-            digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_bb()
+            digit_calculated = CalculateAccountCheckDigit(config={'account': account }).calculate_check_digit_account_bb()
             assert digit_calculated == digit
 
     def test_calculate_check_digit_agency_bradesco(self):
@@ -62,7 +62,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
         for bank_data in BANRISUL['correct_account']:
             account = bank_data[0]
             digit = bank_data[1]
-            digit_calculated = CalculateAccountCheckDigit(account, None).calculate_check_digit_account_banrisul()
+            digit_calculated = CalculateAccountCheckDigit(config={'account': account }).calculate_check_digit_account_banrisul()
             assert digit_calculated == digit
 
     def test_calculate_check_digit_account_caixa(self):
@@ -72,7 +72,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
             agency = bank_data['branch'],
             agency = agency[0]
             digit = bank_data['account_digit']
-            digit_calculated = CalculateAccountCheckDigit(account, agency).calculate_check_digit_account_caixa()
+            digit_calculated = CalculateAccountCheckDigit(config={'account': account, 'agency': agency }).calculate_check_digit_account_caixa()
             assert digit_calculated == digit
 
     def test_calculate_check_digit_account_santander(self):
@@ -100,7 +100,7 @@ class TestCheckDigitCalculator(unittest.TestCase):
             agency = bank_data['branch'],
             agency = agency[0]
             digit = bank_data['account_digit']
-            digit_calculated = CalculateAccountCheckDigit(account, agency).calculate_check_digit_account_itau()
+            digit_calculated = CalculateAccountCheckDigit(config={'account': account, 'agency': agency }).calculate_check_digit_account_itau()
             assert digit_calculated == digit
 
     def test_calculate_check_digit_account_itau(self):

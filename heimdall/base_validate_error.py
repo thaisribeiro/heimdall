@@ -11,7 +11,7 @@ class InvalidAgencyNumber(Exception):
         return f'{self.message}'
 
 class InvalidDigitAgencyNumber(Exception):
-    def __init__(self, digit):
+    def __init__(self):
         self.message = f'Dígito da agência inválido.'
         super().__init__(self.message)
     

@@ -1,18 +1,24 @@
 import re
 from heimdall.common_validate import CommonValidate
-from heimdall.base_validate_error import InvalidAgencyNumber, InvalidDigitAgencyNumber, InvalidAccountNumber, \
-    InvalidDigitAccountNumber
-from heimdall.check_digit_calculator import CalculateAccountCheckDigit, CalculateAgencyCheckDigit
+from heimdall.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber, InvalidAccountNumber,
+                                          InvalidDigitAccountNumber)
+from heimdall.check_digit_calculator import CalculateAccountCheckDigit
 
 
 class AccountValidator(CommonValidate):
     def __init__(self, config):
-        self.config = config
+        self.bank_code = config.get('bank_code')
+        self.account = config.get('account')
+
+        regex = re.search('[@_!#$%^&*()<>?/\-.|}{~:]', self.account)
+        if regex:
+            self.digit_account = self.account[regex.start()+1:len(self.account)]
+
+        if config.get('digit_account'):
+            self.digit_account = config.get('digit_account')
 
     def start(self):
         try:
-            bank_code = self.config.get('bank_code')
-
             switcher = {
                 '001': AccountValidator.valid_account_bb,
                 '237': AccountValidator.valid_account_bradesco,
@@ -24,14 +30,14 @@ class AccountValidator(CommonValidate):
                 '260': AccountValidator.valid_account_nubank
             }
 
-            result = switcher.get(bank_code)()
+            result = switcher.get(self.bank_code)()
 
             if not result:
                 return self.valid_account_generic()
 
             return result
         except Exception:
-            print('Erro')
+            return False
 
     def valid_account_generic(self):
         return {}
@@ -41,7 +47,7 @@ class AccountValidator(CommonValidate):
           Valida a conta e o dígito verificador do Banco do Brasil
           Tamanho da Conta - 8 Dígitos + 1 DV
         """
-        account = self.config.get('account')
+        account = self.account
 
         if len(account) < 9:
             raise InvalidAccountNumber(9)
@@ -51,12 +57,13 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(account).caculate_check_digit_account_bb()
+        check_number_calculate_account = CalculateAccountCheckDigit(
+            config={'account': account}).calculate_check_digit_account_bb()
 
-        if not calculate_account:
-            raise InvalidDigitAccountNumber()
+        if not check_number_calculate_account:
+            raise InvalidAccountNumber()
 
-        return True
+        return check_number_calculate_account == self.digit_account.upper()
 
     def valid_account_itau(self):
         """
@@ -74,7 +81,8 @@ class AccountValidator(CommonValidate):
             raise InvalidAccountNumber()
 
         account_agency = account + self.config('agency')
-        calculate_account = CalculateAccountCheckDigit(account_agency).calculate_check_digit_account_itau()
+        calculate_account = CalculateAccountCheckDigit(
+            account_agency).calculate_check_digit_account_itau()
 
         if not calculate_account:
             raise InvalidAccountNumber()
@@ -96,7 +104,8 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(account).calculate_check_digit_account_bradesco()
+        calculate_account = CalculateAccountCheckDigit(
+            account).calculate_check_digit_account_bradesco()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -118,7 +127,8 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(account).calculate_check_digit_account_santander()
+        calculate_account = CalculateAccountCheckDigit(
+            account).calculate_check_digit_account_santander()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -140,7 +150,8 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(account).calculate_check_digit_account_citibank()
+        calculate_account = CalculateAccountCheckDigit(
+            account).calculate_check_digit_account_citibank()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -162,7 +173,8 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(account).calculate_check_digit_account_banrisul()
+        calculate_account = CalculateAccountCheckDigit(
+            account).calculate_check_digit_account_banrisul()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -184,7 +196,8 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(account).calculate_check_digit_account_caixa()
+        calculate_account = CalculateAccountCheckDigit(
+            account).calculate_check_digit_account_caixa()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()
@@ -206,7 +219,8 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccountCheckDigit(account).calculate_check_digit_account_nubank()
+        calculate_account = CalculateAccountCheckDigit(
+            account).calculate_check_digit_account_nubank()
 
         if not calculate_account:
             raise InvalidDigitAccountNumber()

@@ -1,25 +1,23 @@
 class CalculateAccountCheckDigit:
-    def __init__(self, account, agency):
-        self.account = account
-        self.agency = agency
+    def __init__(self, config):
+        self.account = config.get('account')
+        self.agency = config.get('agency')
 
     def calculate_check_digit_account_bb(self):
         """
             Calcula o dígito verificador da conta do Banco do Brasil
         """
         numbers = []
-        left_zeros = 8 - len(self.account)
-
-        for x in range(left_zeros):
-            numbers.append('0')
-
+        if len(self.account):
+            self.account = '%08d' % int(self.account)
+        
         for number in self.account:
             numbers.append(number)
 
         sumSeq = 0
 
         for i in range(len(numbers)):
-            seq = 9 - i
+            seq = 9 - int(i)
             sumSeq += (int(numbers[i]) * seq)
 
         return Modules().module_bb(sumSeq)
@@ -188,7 +186,7 @@ class CalculateAgencyCheckDigit:
         """
             Calcula número da agência do Banco do Brasil
         """
-        sumSeq = self.calculate_check_digit_agency_generic(self.agency)
+        sumSeq = CalculateAgencyCheckDigit.calculate_check_digit_agency_generic(self.agency)
         return Modules().module_bb(sumSeq)
 
     def calculate_check_digit_agency_bradesco(self):

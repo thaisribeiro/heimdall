@@ -6,21 +6,19 @@ from base_validate_error import InvalidAgencyNumber, InvalidDigitAgencyNumber,In
 
 class AgencyValidator(CommonValidate):
     def __init__(self, config):
-        self.config = config
+        self.bank_code = config.get('bank_code')
+        self.agency = config.get('agency')
+
+        if len(self.agency) > 4:
+            agency = re.sub('[^A-Za-z0-9]+', '', self.agency)
+            self.agency = agency[0:4]
+            self.digit_agency = agency[4:len(agency)]
+        
+        if config.get('digit_agency'):
+            self.digit_agency = config.get('digit_agency')
 
     def start(self):
         try:
-            # validação de agencia com digito
-            bank_code = self.config.get('bank_code')
-            agency_code = self.config.get('agency')
-
-            if len(agency_code) > 4:
-                agency = re.sub('[^A-Za-z0-9]+', '', agency_code)
-                self.config.update({
-                    'agency': agency[0:4],
-                    'digit_agency': agency[4:len(agency)]
-                })
-
             switcher = {
                 '001': AgencyValidator.valid_agency_bb,
                 '237': AgencyValidator.valid_agency_bradesco,
@@ -32,22 +30,21 @@ class AgencyValidator(CommonValidate):
                 '260': AgencyValidator.valid_agency_nubank
             }
 
-            result = switcher.get(bank_code)()
+            result = switcher.get(self.bank_code)()
 
             if not result:
                 return self.valid_agency_generic()
 
             return result
         except Exception:
-            print('Erro')
+            return False
 
     def valid_agency_generic(self):
-        agency = self.config.get('agency')
-        digit_agency = self.config.get('digit_agency')
-
-        result = GenericValidators.agency_is_valid(agency)
-        if digit_agency:
-            result = GenericValidators.agency_digit_is_valid(digit_agency)
+        """
+        """
+        result = GenericValidators.agency_is_valid(self.agency)
+        if self.digit_agency:
+            result = GenericValidators.agency_digit_is_valid(self.digit_agency)
 
         return result
 
@@ -56,24 +53,22 @@ class AgencyValidator(CommonValidate):
            Valida a agência e o dígito verificador do banco do Brasil
            Tamanho da Agência - 4 Dígitos + 1 DV
         """
-        agency = self.config('agency')
-        digit_agency = self.config.get('digit_agency')
-
-        result_agency = super().agency_is_valid(agency)
+        agency_is_valid = super().agency_is_valid(self.agency)
     
-        if result == False:
+        if not agency_is_valid:
             raise InvalidAgencyNumber()
 
-        result = GenericValidators.agency_digit_is_valid(agency)
-        if result == False:
-            raise InvalidDigitAgencyNumber(agency)
+        digit_agency_is_valid = super().agency_digit_is_valid(self.digit_agency)
 
-        calculated_agency_digit =  CalculateAgencyCheckDigit(agency).calculate_check_digit_agency_bb()
-
-        if not calculated_agency_digit:
+        if not digit_agency_is_valid or len(self.digit_agency) != 1:
             raise InvalidDigitAgencyNumber()
 
-        return True
+        check_number_calculated_digit = CalculateAgencyCheckDigit(self.agency).calculate_check_digit_agency_bb()
+
+        if not check_number_calculated_digit:
+            raise InvalidAgencyNumber()
+
+        return check_number_calculated_digit == self.digit_agency.upper()
 
     def valid_agency_itau(self):
         """
