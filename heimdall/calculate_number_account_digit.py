@@ -11,9 +11,7 @@ class CalculateAccount:
         if len(self.account) < 8:
             self.account = '%08d' % int(self.account)
         
-        for number in self.account:
-            numbers.append(number)
-
+        numbers = [number for number in self.account]
         sumSeq = 0
 
         for i in range(len(numbers)):
@@ -26,13 +24,11 @@ class CalculateAccount:
         """
             Calcula o dígito verificador da conta do Banrisul
         """
-        numbers = []
+       
         if len(self.account) < 9:
             self.account = '%09d' % int(self.account)
-
-        for number in self.account:
-            numbers.append(number)
-
+        
+        numbers = [number for number in self.account]
         sumSeq = 0
 
         for i in range(len(numbers)):
@@ -46,12 +42,10 @@ class CalculateAccount:
         """
             Calcula o dígito verificador da conta do Bradesco
         """
-        numbers = []
         if len(self.account) < 7:
             self.account = '%07d' % int(self.account)
 
-        for number in self.account:
-            numbers.append(number)
+        numbers = [number for number in self.account]
 
         sumSeq = 0
         for i in range(len(numbers)):
@@ -65,11 +59,7 @@ class CalculateAccount:
         """
             Calcula o dígito verificador da conta do Itau
         """
-        numbers = []
-
-        for number in self.account:
-            numbers.append(number)
-
+        numbers = [number for number in self.account]
         sumSeq = 0
         sequence = 0
 
@@ -98,15 +88,10 @@ class CalculateAccount:
         """
             Calcula o dígito verificador da conta do banco Citibank
         """
-        numbers = []
-        left_zeros = 10 - len(self.account)
+        if len(self.account) < 10:
+            self.account = '%10d' % int(self.account)
 
-        for x in range(left_zeros):
-            numbers.append('0')
-
-        for number in self.account:
-            numbers.append(number)
-
+        numbers = [number for number in self.account]
         sumSeq = 0
         for i in range(len(numbers)):
             weight = [10, 10, 9, 8, 7, 6, 5, 4, 3, 2]
@@ -175,7 +160,7 @@ class CalculateAccount:
                 sequence += int(numbers_sequence[i])
         
         return sequence
-        
+
 class CalculateAgency:
     def __init__(self, agency):
         self.agency = agency
@@ -193,13 +178,6 @@ class CalculateAgency:
         """
         sumSeq = CalculateAgency.calculate_agency_generic( self.agency)
         return Modules().module_bradesco_agency(sumSeq)
-
-    def calculate_agency_banrisul(self):
-        """
-          Calcula o dígito verificador da agência do banco Banrisul
-        """
-        sumSeq = CalculateAgency.calculate_agency_generic(self.agency)
-        return Modules().module_banrisul_agency(sumSeq)
 
     @staticmethod
     def calculate_agency_generic(agency):
