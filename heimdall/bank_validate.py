@@ -1,7 +1,8 @@
 import re
 from heimdall.base_validate_error import InvalidCodeBank
 
-class BankValidator():
+
+class BankValidate():
     def __init__(self, bank_code):
         self.bank_code = bank_code
 
@@ -31,4 +32,4 @@ class BankValidator():
         if match == False:
             raise InvalidCodeBank()
 
-        return self.bank_code
+        return True

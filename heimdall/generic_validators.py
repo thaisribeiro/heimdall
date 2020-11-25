@@ -1,15 +1,18 @@
 import re
-from heimdall.generic_validators import InvalidAgencyNumber, InvalidDigitAgencyNumber, InvalidAccountNumber, InvalidDigitAccountNumber
 
-class GenericValidators():
+from heimdall.base_validate_error import InvalidAgencyNumber, InvalidDigitAgencyNumber, InvalidAccountNumber, \
+    InvalidDigitAccountNumber
+
+
+class GenericValidators:
     @staticmethod
     def agency_is_valid(agency):
         regex = re.compile('^[0-9]{1,5}$', re.I)
         match = bool(regex.match(agency))
 
-        if match == False:
+        if not match:
             raise InvalidAgencyNumber()
-        
+
         return True
 
     @staticmethod
@@ -17,9 +20,9 @@ class GenericValidators():
         regex = re.compile('^[a-zA-Z0-9]{0,2}$', re.I)
         match = bool(regex.match(digit_agency))
 
-        if match == False:
+        if not match:
             raise InvalidDigitAgencyNumber()
-        
+
         return True
 
     @staticmethod
@@ -27,9 +30,9 @@ class GenericValidators():
         regex = re.compile('^[0-9]{1,12}$', re.I)
         match = bool(regex.match(account))
 
-        if match == False:
+        if not match:
             raise InvalidAccountNumber()
-        
+
         return True
 
     @staticmethod
@@ -37,7 +40,7 @@ class GenericValidators():
         regex = re.compile('^[a-zA-Z0-9]{0,2}$', re.I)
         match = bool(regex.match(digit_account))
 
-        if match == False:
+        if not match:
             raise InvalidDigitAccountNumber()
-        
+
         return True
