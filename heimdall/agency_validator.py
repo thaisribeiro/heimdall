@@ -1,8 +1,9 @@
 import re
 from heimdall.generic_validators import GenericValidators
-from heimdall.calculate_number_account_digit import CalculateAccount, CalculateAgency
+from heimdall.calculate_number_account_digit import CalculateAgency
 from heimdall.common_validate import CommonValidate
-from heimdall.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber,InvalidAccountNumber, InvalidDigitAccountNumber)
+from heimdall.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber)
+
 
 class AgencyValidator(CommonValidate):
     def __init__(self, config):
@@ -13,7 +14,7 @@ class AgencyValidator(CommonValidate):
             agency = re.sub('[^A-Za-z0-9]+', '', self.agency)
             self.agency = agency[0:4]
             self.digit_agency = agency[4:len(agency)]
-        
+
         if config.get('digit_agency'):
             self.digit_agency = config.get('digit_agency')
 
@@ -54,7 +55,7 @@ class AgencyValidator(CommonValidate):
            Tamanho da Agência - 4 Dígitos + 1 DV
         """
         agency_is_valid = super().agency_is_valid(self.agency)
-    
+
         if not agency_is_valid:
             raise InvalidAgencyNumber()
 
@@ -78,7 +79,7 @@ class AgencyValidator(CommonValidate):
         result = super().agency_is_valid(self.agency)
         if result == False:
             raise InvalidAgencyNumber()
-        
+
         return True
 
     def valid_agency_bradesco(self):
@@ -95,17 +96,16 @@ class AgencyValidator(CommonValidate):
         if result == False:
             raise InvalidDigitAgencyNumber()
 
-
         check_number_calculated_agency = CalculateAgency(self.agency).calculate_agency_bradesco()
 
         if not check_number_calculated_agency:
             raise InvalidAgencyNumber()
-        
+
         check_number_informed_digit = self.digit_agency.upper()
 
         if check_number_informed_digit == '0':
             return check_number_calculated_agency == check_number_informed_digit or check_number_calculated_agency == 'P'
-        
+
         return check_number_calculated_agency == check_number_informed_digit
 
     def valid_agency_citibank(self):
@@ -117,7 +117,7 @@ class AgencyValidator(CommonValidate):
 
         if result == False:
             raise InvalidAgencyNumber()
-        
+
         return True
 
     def valid_agency_itau(self):
@@ -165,4 +165,3 @@ class AgencyValidator(CommonValidate):
         if result == False:
             raise InvalidAgencyNumber()
         return True
-

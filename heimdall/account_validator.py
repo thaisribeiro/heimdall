@@ -1,7 +1,6 @@
 import re
 from heimdall.common_validate import CommonValidate
-from heimdall.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber, InvalidAccountNumber,
-                                          InvalidDigitAccountNumber)
+from heimdall.base_validate_error import (InvalidAccountNumber, InvalidDigitAccountNumber)
 from heimdall.calculate_number_account_digit import CalculateAccount
 
 

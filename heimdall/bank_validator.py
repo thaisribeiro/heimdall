@@ -1,6 +1,7 @@
 import re
 from heimdall.base_validate_error import InvalidCodeBank
 
+
 class BankValidator():
     def __init__(self, bank_code):
         self.bank_code = bank_code
