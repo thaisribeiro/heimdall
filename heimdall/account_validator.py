@@ -4,6 +4,7 @@ from heimdall.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgenc
                                           InvalidDigitAccountNumber)
 from heimdall.calculate_number_account_digit import CalculateAccount
 
+
 class AccountValidator(CommonValidate):
     def __init__(self, config):
         self.agency = config.get('agency')
@@ -47,17 +48,16 @@ class AccountValidator(CommonValidate):
           Valida a conta e o dígito verificador do Banco do Brasil
           Tamanho da Conta - 8 Dígitos + 1 DV
         """
-        account = self.account
-
-        if len(account) < 9:
+        if len(self.account) < 9:
             raise InvalidAccountNumber(9)
 
-        result = super().account_is_valid(account)
+        result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculate_account = CalculateAccount(config={'account': account}).calculate_account_bb()
+        check_number_calculate_account = CalculateAccount(
+            config={'account': self.account}).calculate_account_bb()
 
         if not check_number_calculate_account:
             raise InvalidAccountNumber()
@@ -77,7 +77,8 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculated_account = CalculateAccount(self.account).calculate_account_banrisul()
+        check_number_calculated_account = CalculateAccount(
+            config={'account': self.account}).calculate_account_banrisul()
 
         if not check_number_calculated_account:
             raise InvalidAccountNumber()
@@ -97,24 +98,24 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculated_account = CalculateAccount(self.account).calculate_account_bradesco()
+        check_number_calculated_account = CalculateAccount(config={'account': self.account}).calculate_account_bradesco()
 
         if not check_number_calculated_account:
             raise InvalidAccountNumber()
-        
+
         check_number_informed_account = self.digit_account.upper()
 
         if check_number_informed_account == '0':
             return check_number_calculated_account == check_number_informed_account or check_number_calculated_account == 'P'
-        
-        return check_number_calculated_account == check_number_informed_account 
+
+        return check_number_calculated_account == check_number_informed_account
 
     def valid_account_citibank(self):
         """
           Valida a conta e o dígito verificador do banco Banrisul
           Tamanho da Conta - 7 Dígitos + 1 DV
         """
-    
+
         if len(self.account) < 8:
             raise InvalidAccountNumber(8)
 
@@ -122,13 +123,18 @@ class AccountValidator(CommonValidate):
 
         if not result:
             raise InvalidAccountNumber()
-        
+
         result_digit = super().account_digit_is_valid(self.digit_account)
 
         if not result_digit:
             raise InvalidDigitAccountNumber()
+        
+        check_number_calculate_account = CalculateAccount(config={'account': self.account}).calculate_account_citibank()
 
-        return True
+        if not check_number_calculate_account:
+            raise InvalidAccountNumber
+
+        return check_number_calculate_account == self.digit_account
 
     def valid_account_itau(self):
         """
@@ -143,18 +149,18 @@ class AccountValidator(CommonValidate):
             raise InvalidAccountNumber()
 
         result_digit = super().account_digit_is_valid(self.account_digit_is_valid)
-        
+
         if not result_digit:
             raise InvalidDigitAccountNumber()
-        
+
         account_agency = self.account + self.agency
-        check_number_calculated_account = CalculateAccount(account_agency).calculate_account_itau()
+        check_number_calculated_account = CalculateAccount(config={'account': account_agency}).calculate_account_itau()
 
         if not check_number_calculated_account:
             raise InvalidAccountNumber()
 
         return check_number_calculated_account == self.digit_account
-    
+
     def valid_account_santander(self):
         """
           Valida a conta e o dígito verificador do banco Santander
@@ -168,14 +174,18 @@ class AccountValidator(CommonValidate):
 
         if result == False:
             raise InvalidAccountNumber()
-        
+
         result_digit = super().account_digit_is_valid(self.digit_account)
-        
+
         if not result_digit:
             raise InvalidDigitAccountNumber()
-        
-        return True
 
+        check_number_calculated_account = CalculateAccount(config={'account': self.account, 'agency': self.agency })
+
+        if not check_number_calculated_account:
+            raise InvalidAccountNumber()
+
+        return check_number_calculated_account == self.digit_account
 
     def valid_account_caixa(self):
         """
@@ -191,12 +201,13 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccount(self.account).calculate_account_caixa()
+        check_number_calculated_account = CalculateAccount(
+            config={'agency': self.agency, 'account': self.account}).calculate_account_caixa()
 
-        if not calculate_account:
+        if not check_number_calculated_account:
             raise InvalidDigitAccountNumber()
 
-        return True
+        return check_number_calculated_account == self.digit_account
 
     def valid_account_nubank(self):
         """
@@ -211,9 +222,9 @@ class AccountValidator(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        calculate_account = CalculateAccount(self.account).calculate_account_nubank()
+        check_number_calculated_account = CalculateAccount(config={'account': self.account}).calculate_account_nubank()
 
-        if not calculate_account:
+        if not check_number_calculated_account:
             raise InvalidDigitAccountNumber()
 
-        return True
+        return check_number_calculated_account == self.digit_account
