@@ -1,6 +1,6 @@
 import unittest
 
-from heimdall.check_digit_calculator import CalculateAgencyCheckDigit, CalculateAccountCheckDigit
+from heimdall.calculate_number_account import CalculateAccount, CalculateAccountCheckDigit
 from heimdall.tests.data import BANCO_DO_BRASIL, BRADESCO, BANRISUL, CAIXA_ECONOMICA_FEDERAL, \
     SANTANDER, CITIBANK, ITAU, NUBANK
 

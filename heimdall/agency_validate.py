@@ -1,34 +1,33 @@
 import re
-from heimdall.generic_validators import GenericValidators
-from heimdall.calculate_number_account_digit import CalculateAgency
-from heimdall.common_validate import CommonValidate
 from heimdall.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber)
+from heimdall.calculate_number_agency import CalculateAgency
+from heimdall.common_validate import CommonValidate
+from heimdall.generic_validators import GenericValidators
 
-
-class AgencyValidator(CommonValidate):
-    def __init__(self, config):
-        self.bank_code = config.get('bank_code')
-        self.agency = config.get('agency')
+class AgencyValidate(CommonValidate):
+    def __init__(self, **kwargs):
+        self.bank_code = kwargs.get('bank_code')
+        self.agency = kwargs.get('agency')
 
         if len(self.agency) > 4:
             agency = re.sub('[^A-Za-z0-9]+', '', self.agency)
             self.agency = agency[0:4]
             self.digit_agency = agency[4:len(agency)]
 
-        if config.get('digit_agency'):
-            self.digit_agency = config.get('digit_agency')
+        if kwargs.get('digit_agency'):
+            self.digit_agency = kwargs.get('digit_agency')
 
     def start(self):
         try:
             switcher = {
-                '001': AgencyValidator.valid_agency_bb,
-                '237': AgencyValidator.valid_agency_bradesco,
-                '341': AgencyValidator.valid_agency_itau,
-                '033': AgencyValidator.valid_agency_santander,
-                '745': AgencyValidator.valid_agency_citibank,
-                '041': AgencyValidator.valid_agency_banrisul,
-                '104': AgencyValidator.valid_agency_caixa,
-                '260': AgencyValidator.valid_agency_nubank
+                '001': AgencyValidate.valid_agency_bb,
+                '237': AgencyValidate.valid_agency_bradesco,
+                '341': AgencyValidate.valid_agency_itau,
+                '033': AgencyValidate.valid_agency_santander,
+                '745': AgencyValidate.valid_agency_citibank,
+                '041': AgencyValidate.valid_agency_banrisul,
+                '104': AgencyValidate.valid_agency_caixa,
+                '260': AgencyValidate.valid_agency_nubank
             }
 
             result = switcher.get(self.bank_code)()

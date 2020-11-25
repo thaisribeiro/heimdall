@@ -1,33 +1,33 @@
 import re
 from heimdall.common_validate import CommonValidate
+from heimdall.generic_validators import GenericValidators
 from heimdall.base_validate_error import (InvalidAccountNumber, InvalidDigitAccountNumber)
-from heimdall.calculate_number_account_digit import CalculateAccount
+from heimdall.calculate_number_account import CalculateAccount
 
-
-class AccountValidator(CommonValidate):
-    def __init__(self, config):
-        self.agency = config.get('agency')
-        self.bank_code = config.get('bank_code')
-        self.account = config.get('account')
+class AccountValidate(CommonValidate):
+    def __init__(self, **kwargs):
+        self.agency = kwargs.get('agency')
+        self.bank_code = kwargs.get('bank_code')
+        self.account = kwargs.get('account')
 
         regex = re.search('[@_!#$%^&*()<>?/\-.|}{~:]', self.account)
         if regex:
             self.digit_account = self.account[regex.start()+1:len(self.account)]
 
-        if config.get('digit_account'):
-            self.digit_account = config.get('digit_account')
+        if kwargs.get('digit_account'):
+            self.digit_account = kwargs.get('digit_account')
 
     def start(self):
         try:
             switcher = {
-                '001': AccountValidator.valid_account_bb,
-                '237': AccountValidator.valid_account_bradesco,
-                '341': AccountValidator.valid_account_itau,
-                '033': AccountValidator.valid_account_santander,
-                '745': AccountValidator.valid_account_citibank,
-                '041': AccountValidator.valid_account_banrisul,
-                '104': AccountValidator.valid_account_caixa,
-                '260': AccountValidator.valid_account_nubank
+                '001': AccountValidate.valid_account_bb,
+                '237': AccountValidate.valid_account_bradesco,
+                '341': AccountValidate.valid_account_itau,
+                '033': AccountValidate.valid_account_santander,
+                '745': AccountValidate.valid_account_citibank,
+                '041': AccountValidate.valid_account_banrisul,
+                '104': AccountValidate.valid_account_caixa,
+                '260': AccountValidate.valid_account_nubank
             }
 
             result = switcher.get(self.bank_code)()
@@ -40,7 +40,14 @@ class AccountValidator(CommonValidate):
             return False
 
     def valid_account_generic(self):
-        return {}
+        """
+        """
+        result = GenericValidators.account_is_valid(self.account)
+    
+        if self.digit_account:
+            result = GenericValidators.account_digit_is_valid(self.digit_account)
+
+        return result
 
     def valid_account_bb(self):
         """
