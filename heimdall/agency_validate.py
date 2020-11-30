@@ -41,6 +41,7 @@ class AgencyValidate(CommonValidate):
 
     def valid_agency_generic(self):
         """
+          Valida agências genéricas
         """
         result = GenericValidators.agency_is_valid(self.agency)
         

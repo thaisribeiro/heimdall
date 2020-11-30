@@ -26,6 +26,9 @@ class BankValidate():
         return True
 
     def valid_bank_generic(self):
+        """
+            Valida bancos genéricos
+        """
         regex = re.compile('^([0-9A-Za-x]{3,5})$', re.I)
         match = bool(regex.match(self.bank_code))
 

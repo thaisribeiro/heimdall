@@ -2,7 +2,7 @@
 
 > Heimdall is the guardian of the rainbow bridge, which is the onlu way to Asgard (heaven) bouding with Midgard (earth) os nordic mithology, for this project Heimdall is responsible for not letting invalid bank data to be accepted.
 
-![image](https://github.com/thaisribeiro/Heimdall/blob/feat%2Frefactoring/heimdall%2Fimage%2Fheimdall.png)
+![image](https://github.com/thaisribeiro/Heimdall/blob/1d61a201e10b701f71954782f89696e550d7dc69/heimdall%2Fimage%2Fheimdall.png)
 
 # 2. Bank Account Validate
 

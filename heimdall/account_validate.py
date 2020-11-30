@@ -41,7 +41,7 @@ class AccountValidate(CommonValidate):
 
     def valid_account_generic(self):
         """
-            validate account default
+            Valida contas genéricas
         """
         result = GenericValidators.account_is_valid(self.account)
     
