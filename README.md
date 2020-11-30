@@ -1,15 +1,105 @@
-# Heimdall
+# 1. Heimdall
 
-> Heimdall é o guardião da ponte do arco-íris Bifrost, que é o único caminho para Asgard (a casa dos deuses),conectando-a com Midgard (a casa do homem) na mitologia nórdica, aqui ele é o responsável por não deixar que dados bancários inválidos seja validados.
+> Heimdall is the guardian of the rainbow bridge, which is the onlu way to Asgard (heaven) bouding with Midgard (earth) os nordic mithology, for this project Heimdall is responsible for not letting invalid bank data to be accepted.
 
 ![image](https://github.com/thaisribeiro/Heimdall/blob/feat%2Frefactoring/heimdall%2Fimage%2Fheimdall.png)
 
-# Validador de Contas Bancárias
+# 2. Bank Account Validate
 
-Heimdall é um pacote Python que valida os principais bancos: Itaú, Bradesco, Caixa, Banco do Brasil, Citibank, Santander, Banrisul e Nubank. Para outros é realizada uma validação padrão:
- * Agência de 1 até 5 números
- * Dígito da agência de 0 a 2 caracteres
- * Conta corrente de 1 até 12 números
- * Dígito da conta corrente de 0 a 2 caracteres
+Heimdall is a Python package which validates the main brazilian banks: Itaú, Bradesco, Caixa, Banco do Brasil, Citibank, Santander, Banrisul and Nubank.
+For the remaining ones it is used a default validation:
+* Agency is required to have 1 up to 5 digits
+* Agency Branch is required to have 0 up to 2 characters
+* Account is required to have 1 up to 12 digits
+* Account Branch is required to have 0 up to 2 characters
+# 3. Basic Usage
+
+Install with pip:
+
+```
+pip install heimdall
+```
+
+To validate the entire bank account, follow these steps:
+
+
+``` {.sourceCode .python}
+from heimdall import DataBankValidate
+
+valid_bank = DataBankValidate(
+                bank_code='001',
+                agency='1584',
+                digit_agency='9',
+                account='00210169',
+                digit_account='6'
+            ).start()
+
+if valid_bank == True:
+    print('Bank Valid')
+else:
+    print('Bank Invalid')
+
+```
+You can also validate in stages, using `BankValidate`, `AgencyValidate`, `AccountValidate`,:
+### Examples:
+
+* basic agency validation:
   
-# Uso  
+``` {.sourceCode .python}
+from heimdall import AgencyValidate
+
+valid_bank = AgencyValidate(
+                bank_code='237',
+                agency='2377'
+            ).start()
+
+if valid_bank == True:
+    print('Agency Valid')
+else:
+    print('Agency Invalid')
+
+```
+
+* validation with agency branch
+  
+``` {.sourceCode .python}
+from heimdall import AgencyValidate
+
+valid_bank = AgencyValidate(
+                bank_code='001',
+                agency='1584',
+                digit_agency='9'
+            ).start()
+
+if valid_bank == True:
+    print('Agency Valid')
+else:
+    print('Agency Invalid')
+
+```
+
+* agency validation by passing the branch directly at the agency, if you have:
+  
+``` {.sourceCode .python}
+from heimdall import AgencyValidate
+
+valid_bank = AgencyValidate(
+                bank_code='001',
+                agency='1584-9'
+            ).start()
+
+if valid_bank == True:
+    print('Agency Valid')
+else:
+    print('Agency Invalid')
+
+```
+
+# 4. License
+Heimdall is released under the MIT license. See the bundled
+[LICENSE](https://github.com/thaisribeiro/Heimdall/blob/783f3f3dfdd34cedc220128618582ec1e3d71303/LICENSE) file for details.
+
+# 5. Credits
+
+- [ThaisRibeiro](https://github.com/thaisribeiro)
+- [BrunaBaleste](https://github.com/BrunaBritoBaleste)

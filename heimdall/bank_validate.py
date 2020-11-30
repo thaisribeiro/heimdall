@@ -3,8 +3,8 @@ from heimdall.base_validate_error import InvalidCodeBank
 
 
 class BankValidate():
-    def __init__(self, bank_code):
-        self.bank_code = bank_code
+    def __init__(self, **kwargs):
+        self.bank_code = kwargs.get('bank_code')
 
     def start(self):
         switcher = {
@@ -23,7 +23,7 @@ class BankValidate():
         if not bank_valid:
             return self.valid_bank_generic()
 
-        return bank_valid
+        return True
 
     def valid_bank_generic(self):
         regex = re.compile('^([0-9A-Za-x]{3,5})$', re.I)

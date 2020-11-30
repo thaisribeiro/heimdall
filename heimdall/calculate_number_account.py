@@ -1,7 +1,7 @@
 class CalculateAccount:
-    def __init__(self, config):
-        self.account = config.get('account')
-        self.agency = config.get('agency')
+    def __init__(self, **kwargs):
+        self.account = kwargs.get('account')
+        self.agency = kwargs.get('agency')
 
     def calculate_account_bb(self):
         """
@@ -45,6 +45,9 @@ class CalculateAccount:
         if len(self.account) < 7:
             self.account = '%07d' % int(self.account)
 
+        if len(self.account) > 7:
+            return False
+        
         numbers = [number for number in self.account]
 
         sumSeq = 0
@@ -176,12 +179,12 @@ class Modules():
     def module_eleven(sumSeq):
         module = sumSeq % 11
         if module == 0:
-            return 0
+            return '0'
 
         if module == 1:
-            return 6
+            return '6'
 
-        return 11 - module
+        return str(11 - module)
 
     @staticmethod
     def module_bradesco_account(sumSeq):
