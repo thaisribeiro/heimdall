@@ -715,7 +715,7 @@ BRADESCO = {
         {'bank_code': '237', 'branch': '1493', 'branch_digit': '1', 'account': '00004218', 'account_digit': '2'},
         {'bank_code': '237', 'branch': '0105', 'branch_digit': '8', 'account': '0243332', 'account_digit': '1'},
         {'bank_code': '237', 'branch': '2375', 'branch_digit': '2', 'account': '0107478', 'account_digit': '2'},
-        {'bank_code': '237', 'branch': '3539', 'branch_digit': '4', 'account': '98845', 'account_digit': '3'},
+        {'bank_code': '237', 'branch': '3539', 'branch_digit': '4', 'account': '98845', 'account_digit': '3'}
     ]
 }
 
