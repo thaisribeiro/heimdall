@@ -179,12 +179,12 @@ class Modules():
     def module_eleven(sumSeq):
         module = sumSeq % 11
         if module == 0:
-            return 0
+            return '0'
 
         if module == 1:
-            return 6
+            return '6'
 
-        return 11 - module
+        return str(11 - module)
 
     @staticmethod
     def module_bradesco_account(sumSeq):

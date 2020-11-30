@@ -20,14 +20,14 @@ class AgencyValidate(CommonValidate):
     def start(self):
         try:
             switcher = {
-                '001': AgencyValidate.valid_agency_bb,
-                '237': AgencyValidate.valid_agency_bradesco,
-                '341': AgencyValidate.valid_agency_itau,
-                '033': AgencyValidate.valid_agency_santander,
-                '745': AgencyValidate.valid_agency_citibank,
-                '041': AgencyValidate.valid_agency_banrisul,
-                '104': AgencyValidate.valid_agency_caixa,
-                '260': AgencyValidate.valid_agency_nubank
+                '001': self.valid_agency_bb,
+                '237': self.valid_agency_bradesco,
+                '341': self.valid_agency_itau,
+                '033': self.valid_agency_santander,
+                '745': self.valid_agency_citibank,
+                '041': self.valid_agency_banrisul,
+                '104': self.valid_agency_caixa,
+                '260': self.valid_agency_nubank
             }
 
             result = switcher.get(self.bank_code)()
@@ -43,6 +43,7 @@ class AgencyValidate(CommonValidate):
         """
         """
         result = GenericValidators.agency_is_valid(self.agency)
+        
         if self.digit_agency:
             result = GenericValidators.agency_digit_is_valid(self.digit_agency)
 
@@ -67,7 +68,7 @@ class AgencyValidate(CommonValidate):
 
         if not check_number_calculated_digit:
             raise InvalidAgencyNumber()
-
+      
         return check_number_calculated_digit == self.digit_agency.upper()
 
     def valid_agency_banrisul(self):
@@ -89,9 +90,9 @@ class AgencyValidate(CommonValidate):
         result = super().agency_is_valid(self.agency)
         if result == False:
             raise InvalidAgencyNumber()
-
-        result = super.agency_digit_is_valid(self.digit_agency)
-
+      
+        result = super().agency_digit_is_valid(self.digit_agency)
+       
         if result == False:
             raise InvalidDigitAgencyNumber()
 
@@ -104,7 +105,7 @@ class AgencyValidate(CommonValidate):
 
         if check_number_informed_digit == '0':
             return check_number_calculated_agency == check_number_informed_digit or check_number_calculated_agency == 'P'
-
+        
         return check_number_calculated_agency == check_number_informed_digit
 
     def valid_agency_citibank(self):

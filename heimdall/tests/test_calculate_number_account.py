@@ -38,6 +38,19 @@ class TestCalculateAccount(TestCase):
       
         assert digits_calculated != accounts_digit
         
+    def test_calculate_account_banrisul_valid(self):
+        bank = BANRISUL['correct_account']
+        digits_calculated = []
+        accounts_digit = []
+        for i in range(len(bank)):
+            calculate_account = CalculateAccount(
+                account=bank[i][0]
+            ).calculate_account_banrisul()
+            
+            digits_calculated.append(calculate_account)
+            accounts_digit.append(bank[i][1])
+        assert digits_calculated == accounts_digit        
+      
     def test_calculate_account_bradesco_valid(self):
         bank = BRADESCO['valid_combinations']
         digits_calculated = []
@@ -78,17 +91,16 @@ class TestCalculateAccount(TestCase):
         digits_calculated = []
         accounts_digit = []
         for i in range(len(bank)):
+            account = bank[i]['branch'] + bank[i]['account']
             calculate_account = CalculateAccount(
                 agency=bank[i]['branch'],
-                account=bank[i]['account']
+                account=account
                 
             ).calculate_account_itau()
             
             digits_calculated.append(calculate_account)
             accounts_digit.append(bank[i]['account_digit'])
 
-        print(digits_calculated)
-        print(accounts_digit)
         assert digits_calculated == accounts_digit
         
     def test_calculate_account_itau_invalid(self):
@@ -96,9 +108,10 @@ class TestCalculateAccount(TestCase):
         digits_calculated = []
         accounts_digit = []
         for i in range(len(bank)):
+            account = bank[i]['branch'] + bank[i]['account']
             calculate_account = CalculateAccount(
                 agency=bank[i]['branch'],
-                account=bank[i]['account']
+                account=account
                 
             ).calculate_account_itau()
             
@@ -107,5 +120,95 @@ class TestCalculateAccount(TestCase):
 
         assert digits_calculated != accounts_digit
     
- 
+    def test_calculate_account_santander_valid(self):
+        bank = SANTANDER['valid_combinations']
+        digits_calculated = []
+        accounts_digit = []
+        for i in range(len(bank)):
+            calculate_account = CalculateAccount(
+                agency=bank[i]['branch'],
+                account=bank[i]['account']
+            ).calculate_account_santander()
+            
+            digits_calculated.append(calculate_account)
+            accounts_digit.append(bank[i]['account_digit'])
+
+        assert digits_calculated == accounts_digit
         
+    def test_calculate_account_santander_invalid(self):
+        bank = SANTANDER['invalid_combinations']
+        digits_calculated = []
+        accounts_digit = []
+        for i in range(len(bank)):
+            calculate_account = CalculateAccount(
+                agency=bank[i]['branch'],
+                account=bank[i]['account']
+            ).calculate_account_santander()
+            
+            digits_calculated.append(calculate_account)
+            accounts_digit.append(bank[i]['account_digit'])
+
+        assert digits_calculated != accounts_digit
+        
+    def test_calculate_account_citibank_valid(self):
+        bank = CITIBANK['valid_combinations']
+        digits_calculated = []
+        accounts_digit = []
+        for i in range(len(bank)):
+            calculate_account = CalculateAccount(
+                agency=bank[i]['branch'],
+                account=bank[i]['account']
+            ).calculate_account_citibank()
+            
+            digits_calculated.append(calculate_account)
+            accounts_digit.append(bank[i]['account_digit'])
+
+        assert digits_calculated == accounts_digit
+    
+    def test_calculate_account_caixa_valid(self):
+        bank = CAIXA_ECONOMICA_FEDERAL['valid_combinations']
+        digits_calculated = []
+        accounts_digit = []
+        for i in range(len(bank)):
+            calculate_account = CalculateAccount(
+                agency=bank[i]['branch'],
+                account=bank[i]['account']
+            ).calculate_account_caixa()
+            
+            digits_calculated.append(calculate_account)
+            accounts_digit.append(bank[i]['account_digit'])
+
+        assert digits_calculated == accounts_digit
+        
+    def test_calculate_account_caixa_invalid(self):
+        bank = CAIXA_ECONOMICA_FEDERAL['invalid_combinations']
+        digits_calculated = []
+        accounts_digit = []
+        for i in range(len(bank)):
+            calculate_account = CalculateAccount(
+                agency=bank[i]['branch'],
+                account=bank[i]['account']
+            ).calculate_account_caixa()
+            
+            digits_calculated.append(calculate_account)
+            accounts_digit.append(bank[i]['account_digit'])
+
+        assert digits_calculated != accounts_digit
+        
+    def test_calculate_account_nubank_valid(self):
+        bank = NUBANK['valid_combinations']
+        digits_calculated = []
+        accounts_digit = []
+        for i in range(len(bank)):
+            calculate_account = CalculateAccount(
+                agency=bank[i]['branch'],
+                account=bank[i]['account']
+            ).calculate_account_nubank()
+            
+            digits_calculated.append(calculate_account)
+            accounts_digit.append(bank[i]['account_digit'])
+
+        assert digits_calculated == accounts_digit
+     
+     
+    
