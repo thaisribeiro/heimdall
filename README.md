@@ -1,10 +1,10 @@
-# 1. Heimdall
+## Heimdall
 
 > Heimdall is the guardian of the rainbow bridge, which is the onlu way to Asgard (heaven) bouding with Midgard (earth) os nordic mithology, for this project Heimdall is responsible for not letting invalid bank data to be accepted.
 
 ![image](https://github.com/thaisribeiro/Heimdall/blob/c5bde46bbcad0a25061179241f0edee2248273be/heimdall%2Fimage%2Fheimdall.png)
 
-# 2. Bank Account Validate
+## Bank Account Validate
 
 Heimdall is a Python package which validates the main brazilian banks: Itaú, Bradesco, Caixa, Banco do Brasil, Citibank, Santander, Banrisul and Nubank.
 For the remaining ones it is used a default validation:
@@ -12,7 +12,7 @@ For the remaining ones it is used a default validation:
 * Agency Branch is required to have 0 up to 2 characters
 * Account is required to have 1 up to 12 digits
 * Account Branch is required to have 0 up to 2 characters
-# 3. Basic Usage
+## Basic Usage
 
 Install with pip:
 
@@ -95,11 +95,11 @@ else:
 
 ```
 
-# 4. License
+## License
 Heimdall is released under the MIT license. See the bundled
 [LICENSE](https://github.com/thaisribeiro/Heimdall/blob/783f3f3dfdd34cedc220128618582ec1e3d71303/LICENSE) file for details.
 
-# 5. Credits
+## Credits
 
 - [ThaisRibeiro](https://github.com/thaisribeiro)
 - [BrunaBaleste](https://github.com/BrunaBritoBaleste)
