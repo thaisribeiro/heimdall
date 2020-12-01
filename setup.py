@@ -3,7 +3,7 @@ from setuptools import setup
 with open("README.md", "r") as fh:
     readme = fh.read()
 
-setup(name='heimdall-bank-validate',
+setup(name='heimdall_bank_validate',
     version='1.0.0',
     url='https://github.com/thaisribeiro/heimdall',
     license='MIT License',
