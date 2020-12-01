@@ -1,6 +1,5 @@
 import re
 
-
 class CommonValidate:
     @staticmethod
     def agency_is_valid(agency):

@@ -1,8 +1,6 @@
 from unittest import TestCase
-
-from heimdall.calculate_number_agency import CalculateAgency
-from heimdall.tests.data import BANCO_DO_BRASIL, BRADESCO
-
+from heimdall_bank_validate.calculate_number_agency import CalculateAgency
+from heimdall_bank_validate.tests.data import BANCO_DO_BRASIL, BRADESCO
 
 class TestCalculateAgency(TestCase):
 

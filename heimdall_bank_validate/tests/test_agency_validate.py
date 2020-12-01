@@ -1,7 +1,5 @@
 from unittest import TestCase
-
-from heimdall.agency_validate import AgencyValidate
-
+from heimdall_bank_validate.agency_validate import AgencyValidate
 class TestAgencyValidate(TestCase):
     def test_start_agency_validate(self):
         banks_valids = {

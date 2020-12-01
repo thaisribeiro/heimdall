@@ -1,7 +1,5 @@
 from unittest import TestCase
-
-from heimdall.data_bank_validate import DataBankValidate
-
+from heimdall_bank_validate.data_bank_validate import DataBankValidate
 
 class TestDataBankValidate(TestCase):
     def test_start_account_validate(self):

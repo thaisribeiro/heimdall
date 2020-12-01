@@ -1,8 +1,8 @@
 import re
-from heimdall.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber)
-from heimdall.calculate_number_agency import CalculateAgency
-from heimdall.common_validate import CommonValidate
-from heimdall.generic_validators import GenericValidators
+from heimdall_bank_validate.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber)
+from heimdall_bank_validate.calculate_number_agency import CalculateAgency
+from heimdall_bank_validate.common_validate import CommonValidate
+from heimdall_bank_validate.generic_validators import GenericValidators
 
 class AgencyValidate(CommonValidate):
     def __init__(self, **kwargs):
