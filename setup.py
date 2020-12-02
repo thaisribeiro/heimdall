@@ -26,6 +26,5 @@ setup(name='heimdall_bank_validate',
     long_description_content_type="text/markdown",
     author_email='thaisribeirodn@gmail.com',
     keywords='heimdall bank validate',
-    description=u'Exemplo de pacote PyPI',
     packages=['heimdall_bank_validate'],
     python_requires=">=3",)
