@@ -7,10 +7,6 @@ class CalculateAccount:
         """
             Calcula o dígito verificador da conta do Banco do Brasil
         """
-        numbers = []
-        if len(self.account) < 8:
-            self.account = '%08d' % int(self.account)
-        
         numbers = [number for number in self.account]
         sumSeq = 0
 
@@ -24,10 +20,6 @@ class CalculateAccount:
         """
             Calcula o dígito verificador da conta do Banrisul
         """
-       
-        if len(self.account) < 9:
-            self.account = '%09d' % int(self.account)
-        
         numbers = [number for number in self.account]
         sumSeq = 0
 
@@ -42,9 +34,6 @@ class CalculateAccount:
         """
             Calcula o dígito verificador da conta do Bradesco
         """
-        if len(self.account) < 7:
-            self.account = '%07d' % int(self.account)
-
         if len(self.account) > 7:
             return False
         

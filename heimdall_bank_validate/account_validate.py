@@ -4,6 +4,7 @@ from heimdall_bank_validate.generic_validators import GenericValidators
 from heimdall_bank_validate.base_validate_error import (InvalidAccountNumber, InvalidDigitAccountNumber)
 from heimdall_bank_validate.calculate_number_account import CalculateAccount
 
+
 class AccountValidate(CommonValidate):
     def __init__(self, **kwargs):
         self.agency = kwargs.get('agency')
@@ -12,7 +13,7 @@ class AccountValidate(CommonValidate):
 
         regex = re.search('[@_!#$%^&*()<>?/\-.|}{~:]', self.account)
         if regex:
-            self.digit_account = self.account[regex.start()+1:len(self.account)]
+            self.digit_account = self.account[regex.start() + 1:len(self.account)]
 
         if kwargs.get('digit_account'):
             self.digit_account = kwargs.get('digit_account')
@@ -44,7 +45,7 @@ class AccountValidate(CommonValidate):
             Valida contas genéricas
         """
         result = GenericValidators.account_is_valid(self.account)
-    
+
         if self.digit_account:
             result = GenericValidators.account_digit_is_valid(self.digit_account)
 
@@ -55,16 +56,15 @@ class AccountValidate(CommonValidate):
           Valida a conta e o dígito verificador do Banco do Brasil
           Tamanho da Conta - 8 Dígitos + 1 DV
         """
-        if len(self.account) < 9:
-            raise InvalidAccountNumber(9)
+        if len(self.account) < 8:
+            self.account = '%08d' % int(self.account)
 
         result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculate_account = CalculateAccount(
-            config={'account': self.account}).calculate_account_bb()
+        check_number_calculate_account = CalculateAccount(account=self.account).calculate_account_bb()
 
         if not check_number_calculate_account:
             raise InvalidAccountNumber()
@@ -76,16 +76,15 @@ class AccountValidate(CommonValidate):
           Valida a conta e o dígito verificador do banco Banrisul
           Tamanho da Conta - 9 Dígitos + 1 DV (sendo os dois primeiros o tipo de conta)
         """
-        if len(self.account) < 10:
-            raise InvalidAccountNumber(10)
+        if len(self.account) < 9:
+            self.account = '%09d' % int(self.account)
 
         result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculated_account = CalculateAccount(
-            config={'account': self.account}).calculate_account_banrisul()
+        check_number_calculated_account = CalculateAccount(account=self.account).calculate_account_banrisul()
 
         if not check_number_calculated_account:
             raise InvalidAccountNumber()
@@ -97,15 +96,15 @@ class AccountValidate(CommonValidate):
           Valida a conta e o dígito verificador do banco Bradesco
           Tamanho da Conta - 7 Dígitos + 1 DV
         """
-        if len(self.account) < 8:
-            raise InvalidAccountNumber(8)
+        if len(self.account) < 7:
+            self.account = '%07d' % int(self.account)
 
         result = super().account_is_valid(self.account)
 
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculated_account = CalculateAccount(config={'account': self.account}).calculate_account_bradesco()
+        check_number_calculated_account = CalculateAccount(account=self.account).calculate_account_bradesco()
 
         if not check_number_calculated_account:
             raise InvalidAccountNumber()
@@ -135,8 +134,8 @@ class AccountValidate(CommonValidate):
 
         if not result_digit:
             raise InvalidDigitAccountNumber()
-        
-        check_number_calculate_account = CalculateAccount(config={'account': self.account}).calculate_account_citibank()
+
+        check_number_calculate_account = CalculateAccount(account=self.account).calculate_account_citibank()
 
         if not check_number_calculate_account:
             raise InvalidAccountNumber
@@ -161,7 +160,7 @@ class AccountValidate(CommonValidate):
             raise InvalidDigitAccountNumber()
 
         account_agency = self.account + self.agency
-        check_number_calculated_account = CalculateAccount(config={'account': account_agency}).calculate_account_itau()
+        check_number_calculated_account = CalculateAccount(account=account_agency).calculate_account_itau()
 
         if not check_number_calculated_account:
             raise InvalidAccountNumber()
@@ -187,7 +186,7 @@ class AccountValidate(CommonValidate):
         if not result_digit:
             raise InvalidDigitAccountNumber()
 
-        check_number_calculated_account = CalculateAccount(config={'account': self.account, 'agency': self.agency })
+        check_number_calculated_account = CalculateAccount(account=self.account, agency=self.agency).calculate_account_santander()
 
         if not check_number_calculated_account:
             raise InvalidAccountNumber()
@@ -208,8 +207,7 @@ class AccountValidate(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculated_account = CalculateAccount(
-            config={'agency': self.agency, 'account': self.account}).calculate_account_caixa()
+        check_number_calculated_account = CalculateAccount(account=self.account, agency=self.agency).calculate_account_caixa()
 
         if not check_number_calculated_account:
             raise InvalidDigitAccountNumber()
@@ -229,7 +227,7 @@ class AccountValidate(CommonValidate):
         if result == False:
             raise InvalidAccountNumber()
 
-        check_number_calculated_account = CalculateAccount(config={'account': self.account}).calculate_account_nubank()
+        check_number_calculated_account = CalculateAccount(account=self.account).calculate_account_nubank()
 
         if not check_number_calculated_account:
             raise InvalidDigitAccountNumber()
