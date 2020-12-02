@@ -34,14 +34,17 @@ class DataBankValidate():
     @staticmethod
     def _valid_bank(bank_code):
         """
+            valida o banco
         """
         return BankValidate(
             bank_code=bank_code
         ).start()
 
+
     @staticmethod
     def _valid_agency(bank_code, agency, digit_agency):
         """
+            valida a agencia + digito agencia
         """
         return AgencyValidate(
             bank_code=bank_code,
@@ -52,6 +55,7 @@ class DataBankValidate():
     @staticmethod
     def _valid_account(bank_code, agency, digit_agency, account, digit_account):
         """
+            valida a conta + digito conta
         """
         return AccountValidate(
             bank_code=bank_code,

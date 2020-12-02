@@ -20,14 +20,14 @@ class AccountValidate(CommonValidate):
     def start(self):
         try:
             switcher = {
-                '001': AccountValidate.valid_account_bb,
-                '237': AccountValidate.valid_account_bradesco,
-                '341': AccountValidate.valid_account_itau,
-                '033': AccountValidate.valid_account_santander,
-                '745': AccountValidate.valid_account_citibank,
-                '041': AccountValidate.valid_account_banrisul,
-                '104': AccountValidate.valid_account_caixa,
-                '260': AccountValidate.valid_account_nubank
+                '001': self.valid_account_bb,
+                '237': self.valid_account_bradesco,
+                '341': self.valid_account_itau,
+                '033': self.valid_account_santander,
+                '745': self.valid_account_citibank,
+                '041': self.valid_account_banrisul,
+                '104': self.valid_account_caixa,
+                '260': self.valid_account_nubank
             }
 
             result = switcher.get(self.bank_code)()
