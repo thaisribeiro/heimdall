@@ -6,7 +6,7 @@ with open("README.md") as readme_file:
 setup_args = dict(
     name='heimdall_bank_validate',
     description='Python implementation for bank account validation.',
-    version='0.0.5',
+    version='0.0.6',
     url='https://github.com/thaisribeiro/heimdall',
     license='MIT License',
     author='Thais Ribeiro',
@@ -31,5 +31,10 @@ setup_args = dict(
     python_requires=">=3"
 )
 
+install_requires = []
+    'wheel',
+    'setuptools'
+]
+
 if __name__ == '__main__':
-    setup(**setup_args)
+    setup(**setup_args, install_requires=install_requires)
