@@ -31,10 +31,5 @@ setup_args = dict(
     python_requires=">=3"
 )
 
-install_requires = [
-    'setuptools'
-]
-
-
 if __name__ == '__main__':
-    setup(**setup_args, install_requires=install_requires)
+    setup(**setup_args)
