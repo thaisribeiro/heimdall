@@ -1,15 +1,16 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
-with open("README.md", "r") as fh:
-    readme = fh.read()
+with open("README.md") as readme_file:
+    README = readme_file.read()
 
-setup(name='heimdall_bank_validate',
+setup_args = dict(
+    name='heimdall_bank_validate',
     description='Python implementation for bank account validation.',
-    version='0.0.1',
+    version='0.0.2',
     url='https://github.com/thaisribeiro/heimdall',
     license='MIT License',
     author='Thais Ribeiro',
-    long_description=readme,
+    long_description=README,
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
@@ -25,6 +26,10 @@ setup(name='heimdall_bank_validate',
     ],
     long_description_content_type="text/markdown",
     author_email='thaisribeirodn@gmail.com',
-    keywords='heimdall bank validate',
-    packages=['heimdall_bank_validate'],
-    python_requires=">=3",)
+    keywords=['heimdall', 'bank', 'validate'],
+    packages=find_packages(),
+    python_requires=">=3"
+)
+
+if __name__ == '__main__':
+    setup(**setup_args)
