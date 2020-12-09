@@ -14,7 +14,8 @@ class AccountValidate(CommonValidate):
         regex = re.search('[@_!#$%^&*()<>?/\-.|}{~:]', self.account)
         if regex:
             self.digit_account = self.account[regex.start() + 1:len(self.account)]
-
+            self.account = self.account[0:regex.start()]
+            
         if kwargs.get('digit_account'):
             self.digit_account = kwargs.get('digit_account')
 
