@@ -8,16 +8,21 @@ class TestCalculateAccount(TestCase):
         bank = BANCO_DO_BRASIL['valid_combinations']
         digits_calculated = []
         accounts_digit = []
+      
         for i in range(len(bank)):
+            account = bank[i]['account']
+            if len(account) < 8:
+                account = f'%08d' % int(account)
+                
             calculate_account = CalculateAccount(
                 agency=bank[i]['branch'],
-                account=bank[i]['account']
+                account=account
                 
             ).calculate_account_bb()
             
             digits_calculated.append(calculate_account)
             accounts_digit.append(bank[i]['account_digit'])
-
+        
         assert digits_calculated == accounts_digit        
         
     def test_calculate_account_bb_invalid(self):
@@ -54,9 +59,13 @@ class TestCalculateAccount(TestCase):
         digits_calculated = []
         accounts_digit = []
         for i in range(len(bank)):
+            account = bank[i]['account']
+            if len(account) < 7:
+                account = f'%07d' % int(account)
+                
             calculate_account = CalculateAccount(
                 agency=bank[i]['branch'],
-                account=bank[i]['account']
+                account=account
                 
             ).calculate_account_bradesco()
             

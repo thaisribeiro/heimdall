@@ -50,7 +50,7 @@ from heimdall_bank_validate.agency_validate import AgencyValidate
 
 valid_bank = AgencyValidate(
                 bank_code='237',
-                agency='2377'
+                agency='2377-8'
             ).start()
 
 if valid_bank == True:

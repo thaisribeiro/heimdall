@@ -1,4 +1,5 @@
 import re
+from heimdall_bank_validate.utils.constants import GenericVariables
 from heimdall_bank_validate.base_validate_error import (InvalidAgencyNumber, InvalidDigitAgencyNumber)
 from heimdall_bank_validate.calculate_number_agency import CalculateAgency
 from heimdall_bank_validate.common_validate import CommonValidate
@@ -8,17 +9,22 @@ class AgencyValidate(CommonValidate):
     def __init__(self, **kwargs):
         self.bank_code = kwargs.get('bank_code')
         self.agency = kwargs.get('agency')
-
-        if len(self.agency) > 4:
-            agency = re.sub('[^A-Za-z0-9]+', '', self.agency)
-            self.agency = agency[0:4]
-            self.digit_agency = agency[4:len(agency)]
-
-        if kwargs.get('digit_agency'):
-            self.digit_agency = kwargs.get('digit_agency')
+        self.digit_agency = kwargs.get('digit_agency')
 
     def start(self):
         try:
+            regex = re.match('^[0-9]{1,4}(-[0-9a-zA-Z]{1,2})?$', self.agency)
+            if not regex:
+                raise InvalidAgencyNumber()
+            
+            if  len(self.agency) > 4:
+                agency = re.sub('[^A-Za-z0-9]+', '', self.agency)
+                self.agency = agency[0:4]
+                self.digit_agency = agency[4:len(agency)]
+            
+            if self.bank_code not in GenericVariables.LIST_BANKS:
+                return self.valid_agency_generic()
+            
             switcher = {
                 '001': self.valid_agency_bb,
                 '237': self.valid_agency_bradesco,
@@ -30,12 +36,7 @@ class AgencyValidate(CommonValidate):
                 '260': self.valid_agency_nubank
             }
 
-            result = switcher.get(self.bank_code)()
-
-            if not result:
-                return self.valid_agency_generic()
-
-            return result
+            return switcher.get(self.bank_code)()
         except Exception:
             return False
 
@@ -60,9 +61,9 @@ class AgencyValidate(CommonValidate):
         if not agency_is_valid:
             raise InvalidAgencyNumber()
 
-        digit_agency_is_valid = super().agency_digit_is_valid(self.digit_agency)
+        result_digit_agency_valid = super().agency_digit_is_valid(self.digit_agency)
 
-        if not digit_agency_is_valid or len(self.digit_agency) != 1:
+        if not result_digit_agency_valid or len(self.digit_agency) != 1:
             raise InvalidDigitAgencyNumber()
 
         check_number_calculated_digit = CalculateAgency(self.agency).calculate_agency_bb()
@@ -77,8 +78,9 @@ class AgencyValidate(CommonValidate):
           Valida a agência e dígito verificador do banco Banrisul
           Tamanho da Agência - 4 Dígitos
         """
-        result = super().agency_is_valid(self.agency)
-        if result == False:
+        result_agency_valid = super().agency_is_valid(self.agency)
+        
+        if not result_agency_valid:
             raise InvalidAgencyNumber()
 
         return True
@@ -88,22 +90,21 @@ class AgencyValidate(CommonValidate):
             Valida a agência e o dígito verificador do banco Bradesco
             Tamanho da Agência - 4 Dígitos + 2 DV
         """
-        result = super().agency_is_valid(self.agency)
-        if result == False:
+        result_agency_valid = super().agency_is_valid(self.agency)
+        
+        if not result_agency_valid:
             raise InvalidAgencyNumber()
       
-        result = super().agency_digit_is_valid(self.digit_agency)
+        result_digit_agency_valid = super().agency_digit_is_valid(self.digit_agency)
        
-        if result == False:
+        if not result_digit_agency_valid:
             raise InvalidDigitAgencyNumber()
 
         check_number_calculated_agency = CalculateAgency(self.agency).calculate_agency_bradesco()
-
         if not check_number_calculated_agency:
             raise InvalidAgencyNumber()
-
+        
         check_number_informed_digit = self.digit_agency.upper()
-
         if check_number_informed_digit == '0':
             return check_number_calculated_agency == check_number_informed_digit or check_number_calculated_agency == 'P'
         
@@ -114,9 +115,9 @@ class AgencyValidate(CommonValidate):
           Valida a agência do banco Citibank
           Tamanho da Agência - 4 Dígitos - Não tem dígito verificador
         """
-        result = super().agency_is_valid(self.agency)
+        result_agency_valid = super().agency_is_valid(self.agency)
 
-        if result == False:
+        if not result_agency_valid:
             raise InvalidAgencyNumber()
 
         return True
@@ -126,8 +127,9 @@ class AgencyValidate(CommonValidate):
           Valida a agência do banco Itaú
           Tamanho da Agência - 4 Dígitos - Não tem dígito verificador
         """
-        result = super().agency_is_valid(self.agency)
-        if result == False:
+        result_agency_valid = super().agency_is_valid(self.agency)
+        
+        if not result_agency_valid:
             raise InvalidAgencyNumber()
 
         return True
@@ -137,9 +139,9 @@ class AgencyValidate(CommonValidate):
            Valida a agência do banco Santander
            Tamanho da Agência - 4 Dígitos - Não tem dígito verificador
         """
-        result = super().agency_is_valid(self.agency)
+        result_agency_valid = super().agency_is_valid(self.agency)
 
-        if result == False:
+        if not result_agency_valid:
             raise InvalidAgencyNumber()
 
         return True
@@ -149,9 +151,9 @@ class AgencyValidate(CommonValidate):
            Valida a agência do banco Caixa Econômica Federal
            Tamanho da Agência - 4 Dígitos - Não tem dígito verificador
         """
-        result = super().agency_is_valid(self.agency)
+        result_agency_valid = super().agency_is_valid(self.agency)
 
-        if result == False:
+        if not result_agency_valid:
             raise InvalidAgencyNumber()
 
         return True
@@ -161,8 +163,9 @@ class AgencyValidate(CommonValidate):
            Valida a agência do banco Nu Pagamentos (Nubank)
            Tamanho da Agência - 4 Dígitos - Não tem dígito verificador
         """
-        result = super().agency_is_valid(self.agency)
+        result_agency_valid = super().agency_is_valid(self.agency)
 
-        if result == False:
+        if not result_agency_valid:
             raise InvalidAgencyNumber()
+        
         return True
