@@ -4,18 +4,20 @@ from heimdall_bank_validate.common_validate import CommonValidate
 from heimdall_bank_validate.generic_validators import GenericValidators
 from heimdall_bank_validate.base_validate_error import (InvalidAccountNumber, InvalidDigitAccountNumber)
 from heimdall_bank_validate.calculate_number_account import CalculateAccount
+
+
 class AccountValidate(CommonValidate):
     def __init__(self, **kwargs):
         self.agency = kwargs.get('agency')
         self.bank_code = kwargs.get('bank_code')
         self.account = kwargs.get('account')
         self.digit_account = kwargs.get('digit_account')
-        
+
         regex = re.search('[@_!#$%^&*()<>?/\-.|}{~:]', self.account)
         if regex:
             self.digit_account = self.account[regex.start() + 1:len(self.account)]
             self.account = self.account[0:regex.start()]
-            
+
         if kwargs.get('digit_account'):
             self.digit_account = kwargs.get('digit_account')
 
@@ -25,10 +27,10 @@ class AccountValidate(CommonValidate):
             if regex:
                 self.digit_account = self.account[regex.start() + 1:len(self.account)]
                 self.account = self.account[0:regex.start()]
-            
+
             if self.bank_code not in GenericVariables.LIST_BANKS:
                 return self.valid_account_generic()
-            
+
             switcher = {
                 '001': self.valid_account_bb,
                 '237': self.valid_account_bradesco,
@@ -66,7 +68,7 @@ class AccountValidate(CommonValidate):
             length_account=8,
             bank='bb'
         )
-        
+
         return check_number_calculated_account == self.digit_account.upper()
 
     def valid_account_banrisul(self):
@@ -141,7 +143,7 @@ class AccountValidate(CommonValidate):
             account=self.account,
             digit_account=self.digit_account,
             length_account=8,
-            bank='itau'
+            bank='santander'
         )
 
         return check_number_calculated_account == self.digit_account
@@ -151,7 +153,7 @@ class AccountValidate(CommonValidate):
           Valida a conta e o dígito verificador do banco Caixa Econômica Federal
           Tamanho da Conta - 11 Dígitos + 1 DV
         """
-        
+
         check_number_calculated_account = AccountValidate.check_number_calculate_account(
             agency=self.agency,
             account=self.account,
@@ -174,7 +176,7 @@ class AccountValidate(CommonValidate):
             length_account=7,
             bank='nubank'
         )
-        
+
         return check_number_calculated_account == self.digit_account
 
     @staticmethod
@@ -184,15 +186,15 @@ class AccountValidate(CommonValidate):
 
         if len(account) < length_account:
             account = f'%0{length_account}d' % int(account)
-        
+
         result_valid_account = super().account_is_valid(account)
         if not result_valid_account:
             raise InvalidAccountNumber()
-        
+
         result_valid_digit_account = super().account_digit_is_valid(digit_account)
         if not result_valid_digit_account:
             raise InvalidDigitAccountNumber()
-            
+
         switcher = {
             'bb': CalculateAccount(account=account).calculate_account_bb,
             'bradeso': CalculateAccount(account=account).calculate_account_bradesco,
@@ -203,16 +205,10 @@ class AccountValidate(CommonValidate):
             'caixa': CalculateAccount(account=account).calculate_account_caixa,
             'nubank': CalculateAccount(account=account).calculate_account_nubank,
         }
-        
+
         result_check_number_account = switcher(bank)()
-        
+
         if not result_check_number_account:
             raise InvalidAccountNumber()
-        
+
         return result_check_number_account
-            
-        
-    
-    
-        
-        
