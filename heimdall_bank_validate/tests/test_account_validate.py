@@ -1,6 +1,7 @@
 from unittest import TestCase
 from heimdall_bank_validate.account_validate import AccountValidate
 
+
 class TestAccountValidate(TestCase):
     def test_start_account_validate(self):
         banks_valids = {
@@ -61,3 +62,15 @@ class TestAccountValidate(TestCase):
             return_account_valid.append(account_valid)
 
         assert [False, False, False, False, False, False, False, False] == return_account_valid
+
+    def test_start_account_validate_santander(self):
+        bank_code = '033'
+        bank_agency = '4442'
+        account = '01090717-7'
+        account_is_valid = AccountValidate(
+            bank_code=bank_code,
+            agency=bank_agency,
+            account=account
+        ).start()
+
+        assert account_is_valid is True
